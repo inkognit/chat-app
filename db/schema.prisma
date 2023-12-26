@@ -1,0 +1,50 @@
+datasource db {
+    provider = "postgresql"
+    url      = "postgresql://admin:verysecretpassword@localhost:5003/docker_chat_app_service_db?schema=public"
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+model user {
+    id        Int         @id @default(autoincrement())
+    email     String      @unique
+    name      String?
+    create_at DateTime    @default(now())
+    update_at DateTime    @updatedAt()
+    user_chat user_chat[]
+    message   message[]
+}
+
+model message {
+    id        Int      @id @default(autoincrement())
+    text      String
+    type      String
+    author    user     @relation(fields: [author_id], references: [id])
+    author_id Int
+    create_at DateTime @default(now())
+    update_at DateTime @updatedAt()
+    chat_id   Int
+    chat      chat     @relation(fields: [chat_id], references: [id])
+}
+
+model chat {
+    id        Int         @id @default(autoincrement())
+    title     String
+    messages  message[]
+    create_at DateTime    @default(now())
+    update_at DateTime    @updatedAt()
+    user_chat user_chat[]
+}
+
+model user_chat {
+    id        Int      @id @default(autoincrement())
+    chat      chat     @relation(fields: [chat_id], references: [id])
+    chat_id   Int
+    user      user     @relation(fields: [user_id], references: [id])
+    user_id   Int
+    create_at DateTime @default(now())
+    update_at DateTime @updatedAt()
+    is_active Boolean  @default(false)
+}
