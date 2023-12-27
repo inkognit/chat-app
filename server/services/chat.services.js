@@ -4,9 +4,13 @@ class Chat {
   constructor() {
     this.prisma = new PrismaClient();
   }
-    
+
   async post_chat(data) {
-    const chat = await this.prisma.chat.create({ data: { title: data.title || '' } });
+    const user_ids = data.users.map((item) => ({ user_id: item.user_id }));
+    const chat = await this.prisma.chat.create({
+      data: { title: data.title || '', user_chat: { createMany: { skipDuplicates: true, data: user_ids } } },
+    });
+
     return chat;
   }
 
