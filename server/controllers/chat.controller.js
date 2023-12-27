@@ -1,29 +1,59 @@
 import ChatService from "../services/chat.services.js";
 
 export default class ChatController {
-  constructor() {
-    this.chat_service = new ChatService()
-  }
-
   async post_chat(req, res) {
-    const data = req.body
-    const resp = await this.chat_service.post_chat(data)
-    return res.send();
+    try {
+      const { body } = req;
+      const chat_service = new ChatService();
+      const resp = await chat_service.post_chat(body);
+      return res.send(resp);
+    } catch (error) {
+      return res.send({ message: error.message ? error.message : error });
+    }
   }
 
-  async get_list(req, res) {
-    return res.send();
+  async get_chats(req, res) {
+    try {
+      const { query } = req;
+      const chat_service = new ChatService();
+      const resp = await chat_service.get_chats(query);
+      return res.send(resp);
+    } catch (error) {
+      return res.send({ message: error.message ? error.message : error });
+    }
   }
 
-  async get(req, res) {
-    return res.send();
+  async get_chat(req, res) {
+    try {
+      const id = +req.params.id;
+      const chat_service = new ChatService();
+      const resp = await chat_service.get_chat(id);
+      return res.send(resp);
+    } catch (error) {
+      return res.send({ message: error.message ? error.message : error });
+    }
   }
 
-  async put(req, res) {
-    return res.send();
+  async put_chat(req, res) {
+    try {
+      const id = +req.params.id;
+      const { body } = req;
+      const chat_service = new ChatService();
+      const resp = await chat_service.put_chat({ ...body, id });
+      return res.send(resp);
+    } catch (error) {
+      return res.send({ message: error.message ? error.message : error });
+    }
   }
 
-  async delete(req, res) {
-    return res.send();
+  async delete_chat(req, res) {
+    try {
+      const id = +req.params.id;
+      const chat_service = new ChatService();
+      const resp = await chat_service.delete_chat(id);
+      return res.send(resp);
+    } catch (error) {
+      return res.send({ message: error.message ? error.message : error });
+    }
   }
 }

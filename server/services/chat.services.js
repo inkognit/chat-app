@@ -21,18 +21,19 @@ class Chat {
     return chats;
   }
 
-  async get_chat(data) {
+  async get_chat(id) {
     const chat = await this.prisma.chat.findUnique({
-      where: { id: data.chat_id },
+      where: { id },
+      include: { user_chat: { select: { user: true } }, messages: true },
     });
     return chat;
   }
 
   async put_chat(data) {
-    const is_check = await this.prisma.chat.count({ where: { id: data.chat_id } });
+    const is_check = await this.prisma.chat.count({ where: { id: data.id } });
     if (!is_check) throw { message: 'По данному идентификатору ничего не найдено' };
     const chat = await this.prisma.chat.update({
-      where: { id: data.chat_id },
+      where: { id: data.id },
       data: { title: data.title },
     });
     return chat;
