@@ -1,5 +1,6 @@
 import userHandlers from '../handlers/user.handlers.js';
 import messageHandlers from '../handlers/message.handlers.js';
+import chatHandlers from '../handlers/chat.handler.js';
 
 export default function onConnection(io, socket) {
   // извлекаем идентификатор комнаты и имя пользователя
@@ -17,4 +18,6 @@ export default function onConnection(io, socket) {
 
   // регистрируем обработчики для сообщений
   messageHandlers(io, socket);
+
+  chatHandlers(io,socket)
 }
