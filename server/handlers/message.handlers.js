@@ -46,7 +46,6 @@ export default function messageHandlers(io, socket) {
   });
 
   socket.on('message:remove', ({ message_ids }) => {
-    // const { message_ids } = message;
     message_service.delete_message(message_ids);
     messages[chat_id] = messages[chat_id].filter((m) => !message_ids.includes(m.message_id));
     updateMessageList();

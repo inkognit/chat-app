@@ -1,7 +1,6 @@
-// импорты
-
 import { nanoid } from 'nanoid';
 import { useEffect, useState } from 'react';
+import { TextField }from '@mui/material';
 import storage from '../../utils/storage';
 
 export const NameInput = () => {
@@ -9,7 +8,7 @@ export const NameInput = () => {
   const [formData, setFormData] = useState({
     user_name: '',
     // фиксируем ("хардкодим") название (идентификатор) комнаты
-    chat_id: 'main_room',
+    chat_id: 1,
   });
   // состояние блокировки кнопки
   const [submitDisabled, setSubmitDisabled] = useState(true);
@@ -63,7 +62,7 @@ export const NameInput = () => {
         {/* скрываем поле для создания комнаты (возможность масштабирования) */}
         <div class="visually-hidden">
           <label htmlFor="chat_id">Enter room ID</label>
-          <input
+          <TextField
             type="text"
             id="chat_id"
             name="chat_id"
