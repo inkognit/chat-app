@@ -4,9 +4,9 @@ import { useSpeechSynthesis } from 'react-speech-kit';
 import TimeAgo from 'react-timeago';
 import storage from '../../../utils/storage';
 
-export default function MessageItem({ message, removeMessage }) {
+export default function MessageItem({key, message, removeMessage }) {
   // извлекаем данные пользователя из локального хранилища
-  const user = storage.get(process.env.USER_KEY);
+  const user = storage.get(process.env.REACT_APP_USER_KEY);
   // утилиты для перевода текста в речь
   const { speak, voices } = useSpeechSynthesis();
   // определяем язык приложения
@@ -18,24 +18,24 @@ export default function MessageItem({ message, removeMessage }) {
   let element;
 
   // извлекаем из сообщения тип и текст или путь к файлу
-  const { messageType, textOrPathToFile } = message;
+  const { type, text } = message;
 
   // формируем абсолютный путь к файлу
-  const pathToFile = `${process.env.SERVER_URI}/files${textOrPathToFile}`;
+  const pathToFile = `${process.env.REACT_APP_SERVER_URI}/files${text}`;
 
   // определяем элемент для рендеринга на основе типа сообщения
-  switch (messageType) {
+  switch (type) {
     case 'text':
       element = (
         <>
           <button
             className="btn"
             // озвучиваем текст при нажатии кнопки
-            onClick={() => speak({ text: textOrPathToFile, voice })}
+            onClick={() => speak({ text, voice })}
           >
             <GiSpeaker className="icon speak" />
           </button>
-          <p>{textOrPathToFile}</p>
+          <p>{text}</p>
         </>
       );
       break;
@@ -53,11 +53,11 @@ export default function MessageItem({ message, removeMessage }) {
   }
 
   // определяем принадлежность сообщения текущему пользователю
-  const isMyMessage = user.user_id === message.user_id;
+  const isMyMessage = user.user_id === message.author_id;
 
   return (
     <li className={`item message ${isMyMessage ? 'my' : ''}`}>
-      <p className="user_name">{isMyMessage ? 'Me' : message.user_name}</p>
+      <p className="user_name">{isMyMessage ? 'Me' : message.author_id}</p>
 
       <div className="inner">
         {element}

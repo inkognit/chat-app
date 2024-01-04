@@ -1,15 +1,16 @@
 import cors from 'cors';
 import express, { json } from 'express';
-import { createServer } from 'http'
-import { Server } from 'socket.io'
-import onConnection from './services/socket_io.js'
+import { createServer } from 'http';
+import { Server } from 'socket.io';
+import onConnection from './services/socket_io.js';
 import routes from './routes/routes.js';
-
 
 const app = express();
 app.use(
   cors({
-    origin: process.env.ALLOWED_ORIGIN,
+    origin: [process.env.ALLOWED_ORIGIN],
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
   }),
 );
 
@@ -31,4 +32,3 @@ app.use('/api', routes);
 server.listen(PORT, () => {
   console.log(`🚀 Server started on port ${PORT}`);
 });
-

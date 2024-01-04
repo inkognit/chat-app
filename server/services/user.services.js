@@ -19,10 +19,8 @@ class UserService {
   async get_users(data) {
     const users = await this.prisma.user.findMany({
       where: {
-        OR: [
-          { name: { contains: data.name, mode: 'insensitive' } },
-          { email: { contains: data.email, mode: 'insensitive' } },
-        ],
+        name: { contains: data.name, mode: 'insensitive' },
+        email: { contains: data.email, mode: 'insensitive' },
       },
     });
     return users;

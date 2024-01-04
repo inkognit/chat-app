@@ -12,8 +12,8 @@
                 "dev"
             ],
             "env": {
-                "SERVER_PORT": "6000",
-                "PORT": "6001",
+                "SERVER_PORT": "3000",
+                "PORT": "3001",
                 "NODE_ENV": "dev",
                 "SALT": "jsf5f4er3ds4f2(54256hqasdu6*20q#%!hq(*3(*!&%GDWKH23",
                 "JWT_SECRET": "m*8&7Ge#fHgxUDWBrX^m*X^m*8&7Ge#F!cJs)Z2Y",
@@ -24,9 +24,9 @@
                 "DB_NAME": "docker_chat_app_service_db",
                 "DATABASE_URL": "postgresql://admin:verysecretpassword@localhost:5002/docker_chat_app_service_db?schema=public",
                 "CORS": "198.162.1.1;", // ip пишутся через ; если он один, то заканчивается ;
-                "ALLOWED_ORIGIN": "http://localhost:3000",
-                "USER_KEY": "chat_app_user",
-                "SERVER_URI": "http://localhost:6000"
+                "ALLOWED_ORIGIN": "http://192.168.61.71:3001",
+                "REACT_APP_USER_KEY": "chat_app_user",
+                "REACT_APP_SERVER_URI": "http://192.168.61.71:3000"
             }
         },
         {
@@ -39,11 +39,11 @@
             "postDebugTask": "Remove Docker Postgres",
             "runtimeArgs": [
                 "run",
-                "dev:server"
+                "dev"
             ],
             "env": {
-                "SERVER_PORT": "6000",
-                "PORT": "6001",
+                "SERVER_PORT": "3000",
+                "PORT": "3001",
                 "NODE_ENV": "dev",
                 "SALT": "jsf5f4er3ds4f2(54256hqasdu6*20q#%!hq(*3(*!&%GDWKH23",
                 "JWT_SECRET": "m*8&7Ge#fHgxUDWBrX^m*X^m*8&7Ge#F!cJs)Z2Y",
@@ -54,9 +54,9 @@
                 "DB_NAME": "docker_chat_app_service_db",
                 "DATABASE_URL": "postgresql://admin:verysecretpassword@localhost:5002/docker_chat_app_service_db?schema=public",
                 "CORS": "198.162.1.1;",
-                "ALLOWED_ORIGIN": "http://localhost:3000",
+                "ALLOWED_ORIGIN": "http://192.168.61.71:3001",
                 "USER_KEY": "chat_app_user",
-                "SERVER_URI": "http://localhost:6000"
+                "SERVER_URI": "http://192.168.61.71:3000"
             }
         },
         {
@@ -70,15 +70,15 @@
                 "dev:server"
             ],
             "env": {
-                "SERVER_PORT": "6000",
-                "PORT": "6001",
+                "SERVER_PORT": "3000",
+                "PORT": "3001",
                 "NODE_ENV": "dev",
                 "SALT": "jsf5f4er3ds4f2(54256hqasdu6*20q#%!hq(*3(*!&%GDWKH23",
                 "JWT_SECRET": "m*8&7Ge#fHgxUDWBrX^m*X^m*8&7Ge#F!cJs)Z2Y",
                 "DB_NAME": "generators_service_db",
                 "DATABASE_URL": "postgresql://admin:verysecretpassword@45.12.18.194:5432/generators_service_db?schema=public",
                 "USER_KEY": "chat_app_user",
-                "SERVER_URI": "http://localhost:6000"
+                "SERVER_URI": "http://192.168.61.71:3000"
                 // "CORS": "198.162.1.1;"
             }
         },

@@ -1,5 +1,5 @@
 import MessageService from '../services/message.services.js';
-import { removeFile } from '../utils/files.js';
+// import { removeFile } from '../utils/files.js';
 import onError from '../utils/onError.js';
 
 // "хранилище" для сообщений
@@ -7,11 +7,13 @@ const messages = {};
 
 export default function messageHandlers(io, socket) {
   const message_service = new MessageService();
-  const { chat_id } = socket;
+  const chat_id = +socket.chat_id;
+  const user_id = +socket.user_id;
 
   // утилита для обновления списка сообщений
   const updateMessageList = () => {
-    io.to(chat_id).emit('message_list:update', messages[chat_id]);
+    const chat_messages = messages[chat_id];
+    io.to(chat_id).emit('messages:update', chat_messages);
   };
 
   // обрабатываем получение сообщений
@@ -32,10 +34,11 @@ export default function messageHandlers(io, socket) {
       await message_service.post_message({
         text: message.text,
         type: message.type || 'any',
-        user_id: message.user_id,
-        chat_id: message.chat_id,
+        user_id,
+        chat_id,
       });
     } catch (error) {
+      console.log(error);
       // ошибка сохраннеия сообщения
     }
 

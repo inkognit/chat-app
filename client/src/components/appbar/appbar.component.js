@@ -5,31 +5,32 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
+// import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
+// import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-
+// import { Link } from 'react-router-dom';
+import MenuButton from './menu-button.component';
 
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function ResponsiveAppBar() {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
+  // const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
+  // const handleOpenNavMenu = (event) => {
+  //   setAnchorElNav(event.currentTarget);
+  // };
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
+  // const handleCloseNavMenu = () => {
+  //   setAnchorElNav(null);
+  // };
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
@@ -59,18 +60,14 @@ function ResponsiveAppBar() {
           </Typography>
           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            <MenuItem key={'chats'} onClick={handleCloseNavMenu} href="http://localhost:6001/chats">
-              <Typography textAlign="center">{'Чаты'}</Typography>
-            </MenuItem>
-            <MenuItem key={'users'} onClick={handleCloseNavMenu} href="http://localhost:6001/users">
-              <Typography textAlign="center">{'Пользователи'}</Typography>
-            </MenuItem>
+            <MenuButton to={'/chats'} title={'Чаты'} />
+            <MenuButton to={'/users'} title={'Пользователи'} />
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Профиль">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="Remy Sharp"  />
               </IconButton>
             </Tooltip>
             <Menu

@@ -17,26 +17,26 @@ export default function MessageList({ log, messages, removeMessage }) {
   }, [messages]);
 
   // отображаем и скрываем системные сообщения
-  useEffect(() => {
-    if (log) {
-      logRef.current.style.opacity = 0.8;
-      logRef.current.style.zIndex = 1;
+  // useEffect(() => {
+  //   if (log) {
+  //     logRef.current.style.opacity = 0.8;
+  //     logRef.current.style.zIndex = 1;
 
-      const timerId = setTimeout(() => {
-        logRef.current.style.opacity = 0;
-        logRef.current.style.zIndex = -1;
-        clearTimeout(timerId);
-      }, 1500);
-    }
-  }, [log]);
+  //     const timerId = setTimeout(() => {
+  //       logRef.current.style.opacity = 0;
+  //       logRef.current.style.zIndex = -1;
+  //       clearTimeout(timerId);
+  //     }, 1500);
+  //   }
+  // }, [log]);
 
   return (
     <div className="container message">
       <h2>Messages</h2>
       <ul className="list message">
-        {/* перебираем список и рендерим сообщения */}
+
         {messages.map((message) => (
-          <MessageItem key={message.message_id} message={message} removeMessage={removeMessage} />
+          <MessageItem key={message.id} message={message} removeMessage={removeMessage} />
         ))}
 
         <p ref={bottomRef}></p>

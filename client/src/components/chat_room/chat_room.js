@@ -1,7 +1,7 @@
 import useChat from '../../hooks/useChat';
 import MessageInput from '../chat_room/message_input/message_input';
 import MessageList from '../chat_room/message_list/message_list';
-import UserList from '../chat_room/user_list/user_list';
+import UserList from './user_list/user_list.page';
 
 export const Room = () => {
   // получаем список пользователей, список сообщений, системную информацию и методы для отправки и удаления сообщения
