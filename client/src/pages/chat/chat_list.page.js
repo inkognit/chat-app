@@ -7,6 +7,7 @@ import { styled } from '@mui/material/styles';
 import { ButtonLink } from '../../components/appbar/menu-button.component';
 import { routes } from '../../routes/routes';
 import { session } from '../../hooks/session';
+import Box from '@mui/material/Box';
 // import useUsers from '../../hooks/useUsers';
 
 const DemoPaper = styled(Paper)(({ theme }) => ({
@@ -31,7 +32,7 @@ export const ChatListPage = () => {
           method: 'GET',
           params: { user_id },
         });
-        console.log(data);
+
         setChats(data);
       } catch (err) {
         console.log(err);
@@ -42,29 +43,31 @@ export const ChatListPage = () => {
 
   return (
     <List className="container chats" sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-      <div>
-        <ul className="list chat">
-          <h2>Chats</h2>
-          {chats.map(({ id, title }) => (
-            <DemoPaper variant="elevation" noWrap component="a">
-              <ButtonLink to={routes.chat + `${id}`} size="large">
-                <Typography
-                  key={id}
-                  textAlign="center"
-                  variant="h6"
-                  sx={{
-                    fontFamily: 'monospace',
-                    color: 'inherit',
-                    textDecoration: 'none',
-                  }}
-                >
-                  {title}
-                </Typography>
-              </ButtonLink>
-            </DemoPaper>
-          ))}
-        </ul>
-      </div>
+      <Box component="ul" className="list chat">
+        <h2>Chats</h2>
+        {chats.map(({ id, title }) => (
+          <DemoPaper
+            key={id}
+            variant="elevation"
+            // component="a"
+          >
+            <ButtonLink to={routes.chat + `${id}`} size="large">
+              <Typography
+                key={id}
+                textAlign="center"
+                variant="h6"
+                sx={{
+                  fontFamily: 'monospace',
+                  color: 'inherit',
+                  textDecoration: 'none',
+                }}
+              >
+                {title}
+              </Typography>
+            </ButtonLink>
+          </DemoPaper>
+        ))}
+      </Box>
     </List>
   );
 };

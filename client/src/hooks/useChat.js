@@ -7,7 +7,8 @@ export default function useChat({ user_id, chat_id }) {
 
   const { current: socket } = useRef(
     io(process.env.REACT_APP_SERVER_URI, {
-      forceNew: true,
+      // forceNew: true,
+      autoConnect: false,
       query: {
         chat_id,
         user_id,
@@ -19,6 +20,7 @@ export default function useChat({ user_id, chat_id }) {
     if (!socket) {
       return;
     }
+    socket.connect()
     socket.emit('message:get');
 
     // socket.on('log', (log) => {
@@ -27,9 +29,9 @@ export default function useChat({ user_id, chat_id }) {
     socket.on('messages:update', (messages) => {
       setMessages(messages);
     });
-    // return () => {
-    //   socket.disconnect();
-    // };
+    return () => {
+      socket.disconnect();
+    };
   }, [socket]);
 
   // метод для отправки сообщения

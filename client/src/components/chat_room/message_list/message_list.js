@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import MessageItem from './message_item';
 import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
+import Grid from '@mui/material/Grid';
 
 export default function MessageList({ log, messages, removeMessage, users }) {
   // иммутабельная ссылка на элемент для отображения системных сообщений
@@ -33,9 +34,9 @@ export default function MessageList({ log, messages, removeMessage, users }) {
   // }, [log]);
 
   return (
-    <div className="container message">
+    <Grid className="container message">
       <h2>Messages</h2>
-      <List sx={{ width: '100%', maxWidth: 360, bgcolor: '#c7f5ff' }}>
+      <List key={'messages list'} sx={{ width: '100%', maxWidth: 360, bgcolor: '#c7f5ff' }}>
         {messages.map((message) => (
           <MessageItem key={message.id} message={message} removeMessage={removeMessage} users={users} />
         ))}
@@ -44,6 +45,6 @@ export default function MessageList({ log, messages, removeMessage, users }) {
           {log}
         </Typography>
       </List>
-    </div>
+    </Grid>
   );
 }

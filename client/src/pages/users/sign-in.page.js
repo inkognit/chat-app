@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { TextField } from '@mui/material';
 import storage from '../../utils/storage';
 import { axiosAPI } from '../../hooks/api';
+import Container from '@mui/material/Container';
 
 export const SignInPage = () => {
   // начальные данные
@@ -43,10 +44,10 @@ export const SignInPage = () => {
   };
 
   return (
-    <div className="container name-input">
+    <Container className="container name-input">
       <h2>Welcome</h2>
       <form onSubmit={onSubmit} className="form name-room">
-        <div>
+        <Container>
           <label htmlFor="user_name">Enter your name</label>
           <TextField
             type="text"
@@ -57,12 +58,12 @@ export const SignInPage = () => {
             value={formData.user_name}
             onChange={onChange}
           />
-        </div>
+        </Container>
         {/* скрываем поле для создания комнаты (возможность масштабирования) */}
         <button disabled={submitDisabled} className="btn chat">
           login
         </button>
       </form>
-    </div>
+    </Container>
   );
 };

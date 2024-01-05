@@ -6,7 +6,8 @@ export default function useUsers({ user_id }) {
 
   const { current: socket } = useRef(
     io(process.env.REACT_APP_SERVER_URI, {
-      forceNew: true,
+      // forceNew: true,
+      autoConnect: false,
       query: {
         user_id,
       },
@@ -17,18 +18,17 @@ export default function useUsers({ user_id }) {
     if (!socket) {
       return;
     }
-
+    socket.connect();
     socket.emit('active_users:get');
     // socket.on('log', (log) => {
     //   setLog(log);
     // });
     socket.on('users:update', (users) => {
-      console.log(users);
       setUsers(users);
     });
-    // return () => {
-    //   socket.disconnect();
-    // };
+    return () => {
+      socket.disconnect();
+    };
   }, [socket]);
 
   const connectUser = (user) => {

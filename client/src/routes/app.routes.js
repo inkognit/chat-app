@@ -1,8 +1,8 @@
-import { ChatPage } from '../pages/chat/chat.pages';
+import { ChatPage } from '../pages/chat/chat.page';
 import { HomePage } from '../pages/home/home';
 import { Route, Routes } from 'react-router-dom';
 import UsersPage from '../pages/users/users.page';
-import { ChatListPage } from '../pages/chat/chat_list.pages';
+import { ChatListPage } from '../pages/chat/chat_list.page';
 
 const AppRoutes = () => (
   <Routes>

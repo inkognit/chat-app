@@ -2,6 +2,7 @@ import useStore from '../../../../hooks/useStore';
 import { useEffect, useRef } from 'react';
 import { MdAttachFile } from 'react-icons/md';
 import FilePreview from '../file_input/file_preview';
+import Container from '@mui/material/Container';
 
 export default function FileInput() {
   // извлекаем файл и метод для его обновления из хранилища
@@ -18,7 +19,7 @@ export default function FileInput() {
   }, [file]);
 
   return (
-    <div className="container file">
+    <Container className="container file">
       <input
         type="file"
         accept="image/*, audio/*, video/*"
@@ -36,6 +37,6 @@ export default function FileInput() {
       </button>
 
       {file && <FilePreview />}
-    </div>
+    </Container>
   );
 }

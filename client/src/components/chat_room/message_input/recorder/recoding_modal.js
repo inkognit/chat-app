@@ -11,6 +11,7 @@ import {
   videoConstraints,
 } from '../../../../utils/recording';
 import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
 
 export default function RecordingModal({ setShowModal }) {
   // извлекаем метод для обновления файла из хранилища
@@ -78,7 +79,7 @@ export default function RecordingModal({ setShowModal }) {
   };
 
   return (
-    <div
+    <Container
       className="overlay"
       onClick={(e) => {
         // скрываем окно при клике за его пределами
@@ -86,21 +87,21 @@ export default function RecordingModal({ setShowModal }) {
         setShowModal(false);
       }}
     >
-      <div className="modal">
-        <div ref={selectBlockRef}>
+      <Container className="modal">
+        <Container ref={selectBlockRef}>
           <h2>Select type</h2>
           <select onChange={onChange}>
             <option value="audio">Audio</option>
             <option value="video">Video</option>
           </select>
-        </div>
+        </Container>
 
         {/* вот для чего нам нужны 2 индикатора начала записи */}
         {isRecordingStarted() && <Typography>{recording ? 'Recording...' : 'Paused'}</Typography>}
 
         <video ref={videoRef} autoPlay muted />
 
-        <div className="controls">
+        <Container className="controls">
           <button className="btn play" onClick={start}>
             {recording ? <BsFillPauseFill className="icon" /> : <BsFillPlayFill className="icon" />}
           </button>
@@ -109,8 +110,8 @@ export default function RecordingModal({ setShowModal }) {
               <BsFillStopFill className="icon" />
             </button>
           )}
-        </div>
-      </div>
-    </div>
+        </Container>
+      </Container>
+    </Container>
   );
 }
