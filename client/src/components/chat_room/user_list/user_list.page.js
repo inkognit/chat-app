@@ -9,16 +9,16 @@ import CheckCircleOutlineRoundedIcon from '@mui/icons-material/CheckCircleOutlin
 export default function UserList({ users = [] }) {
   return (
     <List dense sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-      {users.map((user, index) => {
+      {users.map((user) => {
 
         return (
           <ListItem
-            key={user}
+            key={user.id}
             secondaryAction={<CheckCircleOutlineRoundedIcon color={user.is_active ? 'success' : 'black'} />}
             disablePadding
           >
             <ListItemButton>
-              <ListItemText id={index} primary={user.name} />
+              <ListItemText id={user.id} primary={user.name} />
             </ListItemButton>
           </ListItem>
         );
