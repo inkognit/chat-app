@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react';
 import { io } from 'socket.io-client';
 
 export default function useChat({ user_id, chat_id }) {
-  // const [users, setUsers] = useState([]);
   const [messages, setMessages] = useState([]);
   // const [log, setLog] = useState(null);
 
@@ -21,14 +20,16 @@ export default function useChat({ user_id, chat_id }) {
       return;
     }
     socket.emit('message:get');
+
     // socket.on('log', (log) => {
     //   setLog(log);
     // });
-    console.log(socket);
     socket.on('messages:update', (messages) => {
-      console.log('🚀 ~ file: useChat.js:24 ~ socket.on ~ messages:', messages);
       setMessages(messages);
     });
+    // return () => {
+    //   socket.disconnect();
+    // };
   }, [socket]);
 
   // метод для отправки сообщения

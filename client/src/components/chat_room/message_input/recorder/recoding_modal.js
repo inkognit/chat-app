@@ -10,6 +10,7 @@ import {
   stopRecording,
   videoConstraints,
 } from '../../../../utils/recording';
+import Typography from '@mui/material/Typography';
 
 export default function RecordingModal({ setShowModal }) {
   // извлекаем метод для обновления файла из хранилища
@@ -95,7 +96,7 @@ export default function RecordingModal({ setShowModal }) {
         </div>
 
         {/* вот для чего нам нужны 2 индикатора начала записи */}
-        {isRecordingStarted() && <p>{recording ? 'Recording...' : 'Paused'}</p>}
+        {isRecordingStarted() && <Typography>{recording ? 'Recording...' : 'Paused'}</Typography>}
 
         <video ref={videoRef} autoPlay muted />
 

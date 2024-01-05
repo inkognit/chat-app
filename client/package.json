@@ -16,6 +16,7 @@
     "dotenv": "^16.3.1",
     "dotenv-cli": "^7.3.0",
     "emoji-mart": "^5.5.2",
+    "prettier-plugin-organize-imports": "^3.2.4",
     "process": "^0.11.10",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

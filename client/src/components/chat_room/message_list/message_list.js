@@ -1,7 +1,9 @@
 import { useEffect, useRef } from 'react';
 import MessageItem from './message_item';
+import Typography from '@mui/material/Typography';
+import List from '@mui/material/List';
 
-export default function MessageList({ log, messages, removeMessage }) {
+export default function MessageList({ log, messages, removeMessage, users }) {
   // иммутабельная ссылка на элемент для отображения системных сообщений
   const logRef = useRef();
   // иммутабельная ссылка на конец списка сообщений
@@ -33,18 +35,15 @@ export default function MessageList({ log, messages, removeMessage }) {
   return (
     <div className="container message">
       <h2>Messages</h2>
-      <ul className="list message">
-
+      <List sx={{ width: '100%', maxWidth: 360, bgcolor: '#c7f5ff' }}>
         {messages.map((message) => (
-          <MessageItem key={message.id} message={message} removeMessage={removeMessage} />
+          <MessageItem key={message.id} message={message} removeMessage={removeMessage} users={users} />
         ))}
-
-        <p ref={bottomRef}></p>
-
-        <p ref={logRef} className="log">
+        <Typography ref={bottomRef}></Typography>
+        <Typography ref={logRef} className="log">
           {log}
-        </p>
-      </ul>
+        </Typography>
+      </List>
     </div>
   );
 }

@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react';
+import List from '@mui/material/List';
 import Paper from '@mui/material/Paper';
 import { axiosAPI } from '../../hooks/api';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
 import { ButtonLink } from '../../components/appbar/menu-button.component';
 import { routes } from '../../routes/routes';
+import { session } from '../../hooks/session';
+// import useUsers from '../../hooks/useUsers';
 
 const DemoPaper = styled(Paper)(({ theme }) => ({
   width: 120,
@@ -16,7 +19,9 @@ const DemoPaper = styled(Paper)(({ theme }) => ({
 }));
 
 export const ChatListPage = () => {
+  const { user_id } = session;
   const [chats, setChats] = useState([]);
+  // const { users } = useUsers({ user_id });
 
   useEffect(() => {
     async function fetchData() {
@@ -24,9 +29,9 @@ export const ChatListPage = () => {
         const { data } = await axiosAPI({
           link: 'http://localhost:3000/api/chats',
           method: 'GET',
-          params: { user_id: 1 },
+          params: { user_id },
         });
-
+        console.log(data);
         setChats(data);
       } catch (err) {
         console.log(err);
@@ -36,28 +41,30 @@ export const ChatListPage = () => {
   }, []);
 
   return (
-    <div className="container chats">
-      <h2>Chats</h2>
-      <ul className="list chat">
-        {chats.map(({ id, title }) => (
-          <DemoPaper variant="elevation" noWrap component="a">
-            <ButtonLink to={routes.chat + `${id}`} size="large">
-              <Typography
-                key={id}
-                textAlign="center"
-                variant="h6"
-                sx={{
-                  fontFamily: 'monospace',
-                  color: 'inherit',
-                  textDecoration: 'none',
-                }}
-              >
-                {title}
-              </Typography>
-            </ButtonLink>
-          </DemoPaper>
-        ))}
-      </ul>
-    </div>
+    <List className="container chats" sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+      <div>
+        <ul className="list chat">
+          <h2>Chats</h2>
+          {chats.map(({ id, title }) => (
+            <DemoPaper variant="elevation" noWrap component="a">
+              <ButtonLink to={routes.chat + `${id}`} size="large">
+                <Typography
+                  key={id}
+                  textAlign="center"
+                  variant="h6"
+                  sx={{
+                    fontFamily: 'monospace',
+                    color: 'inherit',
+                    textDecoration: 'none',
+                  }}
+                >
+                  {title}
+                </Typography>
+              </ButtonLink>
+            </DemoPaper>
+          ))}
+        </ul>
+      </div>
+    </List>
   );
 };

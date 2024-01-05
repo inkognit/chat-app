@@ -1,18 +1,32 @@
-import { AiOutlineUser } from 'react-icons/ai';
+import * as React from 'react';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
+
+import CheckCircleOutlineRoundedIcon from '@mui/icons-material/CheckCircleOutlineRounded';
 
 export default function UserList({ users }) {
-  console.log(users);
   return (
-    <div className="container user">
-      <h2>Users</h2>
-      <ul className="list user">
-        {users.map(({ id, name }) => (
-          <li key={id} className="item user">
-            <AiOutlineUser className="icon user" />
-            {name}
-          </li>
-        ))}
-      </ul>
-    </div>
+    <List dense sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+      {users.map((user) => {
+        const labelId = `checkbox-list-secondary-label-${user.name}`;
+        return (
+          <ListItem
+            key={user}
+            secondaryAction={
+              <CheckCircleOutlineRoundedIcon
+                color={user.is_active ? 'success' : 'black'}
+              />
+            }
+            disablePadding
+          >
+            <ListItemButton>
+              <ListItemText id={labelId} primary={user.name} />
+            </ListItemButton>
+          </ListItem>
+        );
+      })}
+    </List>
   );
 }

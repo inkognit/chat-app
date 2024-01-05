@@ -2,17 +2,17 @@ import fileApi from '../../../api/file.api';
 import useStore from '../../../hooks/useStore';
 import { useEffect, useRef, useState } from 'react';
 import { FiSend } from 'react-icons/fi';
-import storage from '../../../utils/storage';
 import EmojiMart from '../message_input/emoji_mart/emoji_mart';
 import FileInput from './file_input/file_input';
 import Recorder from './recorder/recorder';
+import { session } from '../../../hooks/session';
 
 export default function MessageInput({ sendMessage, chat_id }) {
-  const user = storage.get(process.env.REACT_APP_USER_KEY);
-  // извлекаем состояние из хранилища
+    const { user_id } = session
+
   const state = useStore((state) => state);
   const { file, setFile, showPreview, setShowPreview, showEmoji, setShowEmoji } = state;
-  // локальное состояние для текста сообщения
+
   const [text, setText] = useState('');
   // локальное состояние блокировки кнопки
   const [submitDisabled, setSubmitDisabled] = useState(true);
@@ -33,7 +33,6 @@ export default function MessageInput({ sendMessage, chat_id }) {
     e.preventDefault();
     if (submitDisabled) return;
 
-    const { user_id } = user;
     let message = {
       user_id,
       chat_id,

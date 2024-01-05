@@ -1,4 +1,4 @@
-// import userHandlers from '../handlers/user.handlers.js';
+import userHandlers from '../handlers/user.handlers.js';
 import messageHandlers from '../handlers/message.handlers.js';
 // import chatHandlers from '../handlers/chat.handler.js';
 
@@ -12,8 +12,8 @@ export default function onConnection(io, socket) {
   socket.join(+chat_id);
   socket.join(+user_id);
 
-  // регистрируем обработчики 
-  // userHandlers(io, socket);
+  // регистрируем обработчики
+  userHandlers(io, socket);
   messageHandlers(io, socket);
   // chatHandlers(io,socket)
 }

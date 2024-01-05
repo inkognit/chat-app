@@ -37,10 +37,11 @@ class ChatService {
   }
 
   async get_chat(chat_id, user_id) {
-    const chat = await this.prisma.chat.findFirst({
+    const {user_chat, ...chat} = await this.prisma.chat.findFirst({
       where: { user_chat: { some: { chat_id, user_id } } },
+      include: { user_chat: { select: { user: true } } },
     });
-    return chat;
+    return { ...chat, users: user_chat.map((uc) => uc.user) };
   }
 
   async put_chat(data) {
@@ -66,10 +67,9 @@ class ChatService {
       },
     });
     if (!is_check) throw { message: 'По данному идентификатору ничего не найдено' };
-    const chat = await this.prisma.$transaction(
-    [
-       this.prisma.user_chat.deleteMany({ where: { chat: { id } } }),
-       this.prisma.chat.delete({ where: { id } }),
+    const chat = await this.prisma.$transaction([
+      this.prisma.user_chat.deleteMany({ where: { chat: { id } } }),
+      this.prisma.chat.delete({ where: { id } }),
     ]);
 
     return chat;
