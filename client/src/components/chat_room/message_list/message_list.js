@@ -4,9 +4,9 @@ import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
 import Grid from '@mui/material/Grid';
 
-export default function MessageList({ log, messages, removeMessage, users }) {
+export default function MessageList({ messages, removeMessage }) {
   // иммутабельная ссылка на элемент для отображения системных сообщений
-  const logRef = useRef();
+  // const logRef = useRef();
   // иммутабельная ссылка на конец списка сообщений
   const bottomRef = useRef();
 
@@ -38,12 +38,12 @@ export default function MessageList({ log, messages, removeMessage, users }) {
       <h2>Messages</h2>
       <List key={'messages list'} sx={{ width: '100%', maxWidth: 360, bgcolor: '#c7f5ff' }}>
         {messages.map((message) => (
-          <MessageItem key={message.id} message={message} removeMessage={removeMessage} users={users} />
+          <MessageItem key={message.id} message={message} removeMessage={removeMessage} />
         ))}
         <Typography ref={bottomRef}></Typography>
-        <Typography ref={logRef} className="log">
+        {/* <Typography ref={logRef} className="log">
           {log}
-        </Typography>
+        </Typography> */}
       </List>
     </Grid>
   );

@@ -10,7 +10,8 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-export default function MessageItem({ key, message, removeMessage }) {
+export default function MessageItem({  message, removeMessage }) {
+
   // утилиты для перевода текста в речь
   const { speak, voices } = useSpeechSynthesis();
   // определяем язык приложения
@@ -59,7 +60,7 @@ export default function MessageItem({ key, message, removeMessage }) {
   const isMyMessage = 1 === message.author_id;
 
   return (
-    <Container key={key}>
+    <Container key={message.id}>
       <ListItem alignItems="flex-start" sx={{ width: '100%', maxWidth: 360, bgcolor: '#c7ffd3' }}>
         <ListItemAvatar>
           <Avatar alt="" src="/static/images/avatar/1.jpg" />
