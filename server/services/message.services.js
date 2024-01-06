@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 
-class Message {
+class MessageService {
   constructor() {
     this.prisma = new PrismaClient();
   }
@@ -46,12 +46,11 @@ class Message {
     return message;
   }
 
-  async delete_message(id) {
-    const is_check = await this.prisma.message.count({ where: { id } });
-    if (!is_check) throw { message: 'По данному идентификатору ничего не найдено' };
-    const message = await this.prisma.message.delete({ where: { id } });
+  async delete_message(ids) {
+
+    const message = await this.prisma.message.deleteMany({ where: { id: { in: ids } } });
     return message;
   }
 }
 
-export default Message;
+export default MessageService;

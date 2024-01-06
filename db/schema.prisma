@@ -30,12 +30,13 @@ model message {
 }
 
 model chat {
-    id        Int         @id @default(autoincrement())
-    title     String
-    messages  message[]
-    create_at DateTime    @default(now())
-    update_at DateTime    @updatedAt()
-    user_chat user_chat[]
+    id         Int         @id @default(autoincrement())
+    title      String
+    messages   message[]
+    creator_id Int         @default(0)
+    create_at  DateTime    @default(now())
+    update_at  DateTime    @updatedAt()
+    user_chat  user_chat[]
 }
 
 model user_chat {

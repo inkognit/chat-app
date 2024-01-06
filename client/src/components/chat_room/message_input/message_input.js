@@ -1,20 +1,18 @@
 import fileApi from '../../../api/file.api';
 import useStore from '../../../hooks/useStore';
-import { nanoid } from 'nanoid';
 import { useEffect, useRef, useState } from 'react';
 import { FiSend } from 'react-icons/fi';
-import storage from '../../../utils/storage';
 import EmojiMart from '../message_input/emoji_mart/emoji_mart';
 import FileInput from './file_input/file_input';
 import Recorder from './recorder/recorder';
+import { session } from '../../../hooks/session';
 
-export default function MessageInput({ sendMessage }) {
-  // извлекаем данные пользователя из локального хранилища
-  const user = storage.get(process.env.USER_KEY);
-  // извлекаем состояние из хранилища
+export default function MessageInput({ sendMessage, chat_id }) {
+    const { user_id } = session
+
   const state = useStore((state) => state);
   const { file, setFile, showPreview, setShowPreview, showEmoji, setShowEmoji } = state;
-  // локальное состояние для текста сообщения
+
   const [text, setText] = useState('');
   // локальное состояние блокировки кнопки
   const [submitDisabled, setSubmitDisabled] = useState(true);
@@ -31,24 +29,19 @@ export default function MessageInput({ sendMessage }) {
     setShowPreview(file);
   }, [file, setShowPreview]);
 
-  // функция для отправки сообщения
   const onSubmit = async (e) => {
     e.preventDefault();
     if (submitDisabled) return;
 
-    // извлекаем данные пользователя и формируем начальное сообщение
-    const { user_id, user_name, chat_id } = user;
     let message = {
-      message_id: nanoid(),
       user_id,
-      user_name,
       chat_id,
     };
 
     if (!file) {
       // типом сообщения является текст
-      message.messageType = 'text';
-      message.textOrPathToFile = text;
+      message.type = 'text';
+      message.text = text;
     } else {
       // типом сообщения является файл
       try {
@@ -57,8 +50,9 @@ export default function MessageInput({ sendMessage }) {
         // получаем тип файла
         const type = file.type.split('/')[0];
 
-        message.messageType = type;
-        message.textOrPathToFile = path;
+
+        message.type = type;
+        message.text = path;
       } catch (e) {
         console.error(e);
       }

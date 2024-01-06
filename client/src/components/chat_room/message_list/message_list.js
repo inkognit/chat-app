@@ -1,9 +1,12 @@
 import { useEffect, useRef } from 'react';
 import MessageItem from './message_item';
+import Typography from '@mui/material/Typography';
+import List from '@mui/material/List';
+import Grid from '@mui/material/Grid';
 
-export default function MessageList({ log, messages, removeMessage }) {
+export default function MessageList({ messages, removeMessage }) {
   // иммутабельная ссылка на элемент для отображения системных сообщений
-  const logRef = useRef();
+  // const logRef = useRef();
   // иммутабельная ссылка на конец списка сообщений
   const bottomRef = useRef();
 
@@ -17,34 +20,31 @@ export default function MessageList({ log, messages, removeMessage }) {
   }, [messages]);
 
   // отображаем и скрываем системные сообщения
-  useEffect(() => {
-    if (log) {
-      logRef.current.style.opacity = 0.8;
-      logRef.current.style.zIndex = 1;
+  // useEffect(() => {
+  //   if (log) {
+  //     logRef.current.style.opacity = 0.8;
+  //     logRef.current.style.zIndex = 1;
 
-      const timerId = setTimeout(() => {
-        logRef.current.style.opacity = 0;
-        logRef.current.style.zIndex = -1;
-        clearTimeout(timerId);
-      }, 1500);
-    }
-  }, [log]);
+  //     const timerId = setTimeout(() => {
+  //       logRef.current.style.opacity = 0;
+  //       logRef.current.style.zIndex = -1;
+  //       clearTimeout(timerId);
+  //     }, 1500);
+  //   }
+  // }, [log]);
 
   return (
-    <div className="container message">
+    <Grid className="container message">
       <h2>Messages</h2>
-      <ul className="list message">
-        {/* перебираем список и рендерим сообщения */}
+      <List key={'messages list'} sx={{ width: '100%', maxWidth: 360, bgcolor: '#c7f5ff' }}>
         {messages.map((message) => (
-          <MessageItem key={message.message_id} message={message} removeMessage={removeMessage} />
+          <MessageItem key={message.id} message={message} removeMessage={removeMessage} />
         ))}
-
-        <p ref={bottomRef}></p>
-
-        <p ref={logRef} className="log">
+        <Typography ref={bottomRef}></Typography>
+        {/* <Typography ref={logRef} className="log">
           {log}
-        </p>
-      </ul>
-    </div>
+        </Typography> */}
+      </List>
+    </Grid>
   );
 }

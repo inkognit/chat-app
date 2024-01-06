@@ -2,6 +2,7 @@ import useStore from '../../../../hooks/useStore';
 import { useState } from 'react';
 import { RiRecordCircleLine } from 'react-icons/ri';
 import RecordingModal from '../recorder/recoding_modal';
+import Container from '@mui/material/Container';
 
 export default function Recorder() {
   // извлекаем индикатор отображения превью файла из хранилища
@@ -10,7 +11,7 @@ export default function Recorder() {
   const [showModal, setShowModal] = useState(false);
 
   return (
-    <div className="container recorder">
+    <Container className="container recorder">
       <button
         type="button"
         className="btn"
@@ -22,6 +23,6 @@ export default function Recorder() {
         <RiRecordCircleLine className="icon" />
       </button>
       {showModal && <RecordingModal setShowModal={setShowModal} />}
-    </div>
+    </Container>
   );
 }
