@@ -27,13 +27,13 @@ export const SignInPage = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     if (submitDisabled) return;
-    const { data } = await axiosAPI({
+    const data = await axiosAPI({
       link: 'http://localhost:3000/api/users',
       method: 'GET',
       params: { name: formData.user_name },
     });
-
-    if (data[0].id) {
+    console.log(data);
+    if (data && !data.message && data[0].id) {
       storage.set(process.env.REACT_APP_USER_KEY || 'chat_app_user', {
         user_id: data[0].id,
         user_name: formData.user_name,

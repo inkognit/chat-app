@@ -55,8 +55,8 @@
                 "DATABASE_URL": "postgresql://admin:verysecretpassword@localhost:5002/docker_chat_app_service_db?schema=public",
                 "CORS": "198.162.1.1;",
                 "ALLOWED_ORIGIN": "http://192.168.61.71:3001",
-                "USER_KEY": "chat_app_user",
-                "SERVER_URI": "http://192.168.61.71:3000"
+                "REACT_APP_USER_KEY": "chat_app_user",
+                "REACT_APP_SERVER_URI": "http://192.168.61.71:3000"
             }
         },
         {

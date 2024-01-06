@@ -9,8 +9,10 @@ import useUsers from './hooks/useUsers';
 
 function App() {
   const user = storage.get(process.env.REACT_APP_USER_KEY || 'chat_app_user');
-  const { connectUser } = useUsers({ user_id: user.user_id });
+
+  const { connectUser } = useUsers({ user_id: user ? user.user_id : null });
   connectUser();
+
   return (
     <>
       {user ? (
