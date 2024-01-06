@@ -27,7 +27,7 @@ export const ChatListPage = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const { data } = await axiosAPI({
+        const data = await axiosAPI({
           link: 'http://localhost:3000/api/chats',
           method: 'GET',
           params: { user_id },

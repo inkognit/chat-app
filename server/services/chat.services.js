@@ -11,7 +11,7 @@ class ChatService {
       data: {
         title: data.title || '',
         user_chat: { createMany: { skipDuplicates: true, data: user_ids } },
-        creator_id: user_ids[0],
+        creator_id: user_ids[0].user_id,
       },
     });
 
@@ -37,7 +37,7 @@ class ChatService {
   }
 
   async get_chat(chat_id, user_id) {
-    const {user_chat, ...chat} = await this.prisma.chat.findFirst({
+    const { user_chat, ...chat } = await this.prisma.chat.findFirst({
       where: { user_chat: { some: { chat_id, user_id } } },
       include: { user_chat: { select: { user: true } } },
     });
