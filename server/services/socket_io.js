@@ -1,20 +1,19 @@
 import userHandlers from '../handlers/user.handlers.js';
 import messageHandlers from '../handlers/message.handlers.js';
+// import chatHandlers from '../handlers/chat.handler.js';
 
 export default function onConnection(io, socket) {
-  // извлекаем идентификатор комнаты и имя пользователя
-  const { chat_id, user_name } = socket.handshake.query;
+  const { chat_id, user_id } = socket.handshake.query;
 
-  // записываем их в объект сокета
-  socket.chat_id = chat_id;
-  socket.user_name = user_name;
+  socket.chat_id = +chat_id;
+  socket.user_id = +user_id;
 
   // присоединяемся к комнате
-  socket.join(chat_id);
+  socket.join(+chat_id);
+  socket.join(+user_id);
 
-  // регистрируем обработчики для пользователей
+  // регистрируем обработчики
   userHandlers(io, socket);
-
-  // регистрируем обработчики для сообщений
   messageHandlers(io, socket);
+  // chatHandlers(io,socket)
 }

@@ -2,11 +2,16 @@ import { CgTrashEmpty } from 'react-icons/cg';
 import { GiSpeaker } from 'react-icons/gi';
 import { useSpeechSynthesis } from 'react-speech-kit';
 import TimeAgo from 'react-timeago';
-import storage from '../../../utils/storage';
+import Divider from '@mui/material/Divider';
+import * as React from 'react';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import Avatar from '@mui/material/Avatar';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+export default function MessageItem({  message, removeMessage }) {
 
-export default function MessageItem({ message, removeMessage }) {
-  // извлекаем данные пользователя из локального хранилища
-  const user = storage.get(process.env.USER_KEY);
   // утилиты для перевода текста в речь
   const { speak, voices } = useSpeechSynthesis();
   // определяем язык приложения
@@ -17,25 +22,24 @@ export default function MessageItem({ message, removeMessage }) {
   // элемент для рендеринга зависит от типа сообщения
   let element;
 
-  // извлекаем из сообщения тип и текст или путь к файлу
-  const { messageType, textOrPathToFile } = message;
+  const { type, text } = message;
 
   // формируем абсолютный путь к файлу
-  const pathToFile = `${process.env.SERVER_URI}/files${textOrPathToFile}`;
+  const pathToFile = `${process.env.REACT_APP_SERVER_URI}/files${text}`;
 
   // определяем элемент для рендеринга на основе типа сообщения
-  switch (messageType) {
+  switch (type) {
     case 'text':
       element = (
         <>
           <button
             className="btn"
             // озвучиваем текст при нажатии кнопки
-            onClick={() => speak({ text: textOrPathToFile, voice })}
+            onClick={() => speak({ text, voice })}
           >
             <GiSpeaker className="icon speak" />
           </button>
-          <p>{textOrPathToFile}</p>
+          <Typography>{text}</Typography>
         </>
       );
       break;
@@ -53,25 +57,40 @@ export default function MessageItem({ message, removeMessage }) {
   }
 
   // определяем принадлежность сообщения текущему пользователю
-  const isMyMessage = user.user_id === message.user_id;
+  const isMyMessage = 1 === message.author_id;
 
   return (
-    <li className={`item message ${isMyMessage ? 'my' : ''}`}>
-      <p className="user_name">{isMyMessage ? 'Me' : message.user_name}</p>
-
-      <div className="inner">
-        {element}
-
-        {isMyMessage && (
-          <button className="btn" onClick={() => removeMessage(message)}>
-            <CgTrashEmpty className="icon remove" />
-          </button>
-        )}
-      </div>
-
-      <p className="datetime">
-        <TimeAgo date={message.create_at} />
-      </p>
-    </li>
+    <Container key={message.id}>
+      <ListItem alignItems="flex-start" sx={{ width: '100%', maxWidth: 360, bgcolor: '#c7ffd3' }}>
+        <ListItemAvatar>
+          <Avatar alt="" src="/static/images/avatar/1.jpg" />
+        </ListItemAvatar>
+        <ListItemText
+          primary={isMyMessage ? 'Me' : message.author_id}
+          secondary={
+            <React.Fragment>
+              <Typography sx={{ display: 'inline' }} component="span" variant="body2" color="text.primary">
+                {text}
+              </Typography>
+              {isMyMessage && (
+                <button className="btn" onClick={() => removeMessage(message)}>
+                  <CgTrashEmpty className="icon remove" />
+                </button>
+              )}
+              <Typography
+                className="datetime"
+                // sx={{ display: '' }}
+                // component="span"
+                variant="body2"
+                color="text.primary"
+              >
+                <TimeAgo date={message.create_at} />
+              </Typography>
+            </React.Fragment>
+          }
+        />
+      </ListItem>
+      <Divider variant="inset" component="li" />
+    </Container>
   );
 }

@@ -1,9 +1,6 @@
-import { NameInput } from '../../components/name_input/name_input';
-import { Room } from '../../components/chat_room/chat_room';
-import storage from '../../utils/storage';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
 
-export const Home = () => {
-  const user = storage.get(process.env.USER_KEY);
-
-  return user ? <Room /> : <NameInput />;
+export const HomePage = () => {
+  return <Typography textAlign="center">{'Главная'}</Typography>;
 };

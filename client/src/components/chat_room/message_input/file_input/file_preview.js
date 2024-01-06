@@ -1,6 +1,7 @@
 import useStore from '../../../../hooks/useStore';
 import { useEffect, useState } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
+import Container from '@mui/material/Container';
 
 export default function FilePreview() {
   // извлекаем файл и метод для его обновления из хранилища
@@ -37,7 +38,7 @@ export default function FilePreview() {
   }
 
   return (
-    <div className="container preview">
+    <Container className="container preview">
       {element}
 
       <button
@@ -48,6 +49,6 @@ export default function FilePreview() {
       >
         <AiOutlineClose className="icon close" />
       </button>
-    </div>
+    </Container>
   );
 }

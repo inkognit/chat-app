@@ -1,15 +1,13 @@
-// импорты
-
-import { nanoid } from 'nanoid';
 import { useEffect, useState } from 'react';
+import { TextField } from '@mui/material';
 import storage from '../../utils/storage';
+import { axiosAPI } from '../../hooks/api';
+import Container from '@mui/material/Container';
 
-export const NameInput = () => {
+export const SignInPage = () => {
   // начальные данные
   const [formData, setFormData] = useState({
     user_name: '',
-    // фиксируем ("хардкодим") название (идентификатор) комнаты
-    chat_id: 'main_room',
   });
   // состояние блокировки кнопки
   const [submitDisabled, setSubmitDisabled] = useState(true);
@@ -26,31 +24,32 @@ export const NameInput = () => {
   };
 
   // функция для отправки формы
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     if (submitDisabled) return;
-
-    // генерируем идентификатор пользователя
-    const user_id = nanoid();
-
-    // записываем данные пользователя в локальное хранилище
-    storage.set(process.env.USER_KEY, {
-      user_id,
-      user_name: formData.user_name,
-      chat_id: formData.chat_id,
+    const { data } = await axiosAPI({
+      link: 'http://localhost:3000/api/users',
+      method: 'GET',
+      params: { name: formData.user_name },
     });
 
-    // перезагружаем приложение для того, чтобы "попасть" в комнату
+    if (data[0].id) {
+      storage.set(process.env.REACT_APP_USER_KEY || 'chat_app_user', {
+        user_id: data[0].id,
+        user_name: formData.user_name,
+      });
+    }
+
     window.location.reload();
   };
 
   return (
-    <div className="container name-input">
+    <Container className="container name-input">
       <h2>Welcome</h2>
       <form onSubmit={onSubmit} className="form name-room">
-        <div>
+        <Container>
           <label htmlFor="user_name">Enter your name</label>
-          <input
+          <TextField
             type="text"
             id="user_name"
             name="user_name"
@@ -59,24 +58,12 @@ export const NameInput = () => {
             value={formData.user_name}
             onChange={onChange}
           />
-        </div>
+        </Container>
         {/* скрываем поле для создания комнаты (возможность масштабирования) */}
-        <div class="visually-hidden">
-          <label htmlFor="chat_id">Enter room ID</label>
-          <input
-            type="text"
-            id="chat_id"
-            name="chat_id"
-            minLength={4}
-            required
-            value={formData.chat_id}
-            onChange={onChange}
-          />
-        </div>
         <button disabled={submitDisabled} className="btn chat">
-          Chat
+          login
         </button>
       </form>
-    </div>
+    </Container>
   );
 };

@@ -1,4 +1,4 @@
-import ChatService from "../services/chat.services.js";
+import ChatService from '../services/chat.services.js';
 
 export default class ChatController {
   async post_chat(req, res) {
@@ -25,9 +25,10 @@ export default class ChatController {
 
   async get_chat(req, res) {
     try {
-      const id = +req.params.id;
+      const id = req.params.id;
+      const user_id = req.query.user_id;
       const chat_service = new ChatService();
-      const resp = await chat_service.get_chat(id);
+      const resp = await chat_service.get_chat(+id, +user_id);
       return res.send(resp);
     } catch (error) {
       return res.send({ message: error.message ? error.message : error });
@@ -48,9 +49,10 @@ export default class ChatController {
 
   async delete_chat(req, res) {
     try {
-      const id = +req.params.id;
+      const id = req.params.id;
+      const user_id = req.query.user_id;
       const chat_service = new ChatService();
-      const resp = await chat_service.delete_chat(id);
+      const resp = await chat_service.delete_chat(+id, +user_id);
       return res.send(resp);
     } catch (error) {
       return res.send({ message: error.message ? error.message : error });

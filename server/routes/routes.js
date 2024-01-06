@@ -2,7 +2,7 @@ import { Router } from 'express';
 import files_routes from './files.routes.js';
 import chat_routes from './chat.routes.js';
 import user_routes from './user.routes.js';
-import message_routes from './message.controller.js';
+import message_routes from './message.routes.js';
 
 const routes = Router();
 
