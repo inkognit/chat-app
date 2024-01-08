@@ -52,6 +52,9 @@ export default function MessageBox({ message, removeMessage }) {
   //   default:
   //     return null;
   // }
+  function onClickDelete() {
+    removeMessage({ message_ids: [message.id] });
+  }
 
   // определяем принадлежность сообщения текущему пользователю
   const isMyMessage = user_id === message.author_id;
@@ -81,7 +84,7 @@ export default function MessageBox({ message, removeMessage }) {
                 {isMyMessage && (
                   <IconButton
                     variant="contained"
-                    onClick={() => removeMessage(message)}
+                    onClick={onClickDelete}
                     sx={{ maxWidth: 25, maxHeight: 25 }}
                     aria-label="delete"
                     size="small"

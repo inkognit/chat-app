@@ -2,7 +2,6 @@ import MessageService from '../services/message.services.js';
 // import { removeFile } from '../utils/files.js';
 import onError from '../utils/onError.js';
 
-// "хранилище" для сообщений
 const messages = {};
 
 export default function messageHandlers(io, socket) {
@@ -50,7 +49,10 @@ export default function messageHandlers(io, socket) {
 
   socket.on('message:remove', ({ message_ids }) => {
     message_service.delete_message(message_ids);
-    messages[chat_id] = messages[chat_id].filter((m) => !message_ids.includes(m.message_id));
+    messages[chat_id] = messages[chat_id].filter((message) => {
+      return !message_ids.includes(message.id)
+    });
+    
     updateMessageList();
   });
 }

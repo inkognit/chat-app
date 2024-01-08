@@ -1,7 +1,5 @@
 import useChat from '../../hooks/useChat';
-import MessageInput from '../../components/chat_room/message_input/message_input';
 import MessageList from '../../components/chat_room/message_list/message_list';
-// import Chat from './user_list/user_list.page';
 import { useParams } from 'react-router';
 import { session } from '../../hooks/session';
 import { useEffect, useState } from 'react';
@@ -9,7 +7,6 @@ import { axiosAPI } from '../../hooks/api';
 import useUsers from '../../hooks/useUsers';
 import UserList from '../../components/chat_room/user_list/user_list.page';
 import Container from '@mui/material/Container';
-import TextField from '@mui/material/TextField';
 import MessageInputNEW from '../../components/chat_room/message_input/message_input.component';
 
 export const ChatPage = () => {

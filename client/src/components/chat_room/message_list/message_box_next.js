@@ -13,6 +13,10 @@ export default function MessageBoxNext({ message, removeMessage }) {
   const { text } = message;
   const { user_id } = session;
   const isMyMessage = user_id === message.author_id;
+  
+  function onClickDelete() {
+    removeMessage({ message_ids: [message.id] });
+  }
 
   return (
     <Container key={message.id}>
@@ -29,7 +33,7 @@ export default function MessageBoxNext({ message, removeMessage }) {
                 {isMyMessage && (
                   <IconButton
                     variant="contained"
-                    onClick={() => removeMessage(message)}
+                    onClick={onClickDelete}
                     sx={{ maxWidth: 25, maxHeight: 25 }}
                     aria-label="delete"
                     size="small"
