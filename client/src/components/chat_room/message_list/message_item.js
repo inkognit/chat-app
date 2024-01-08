@@ -10,54 +10,49 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-export default function MessageItem({  message, removeMessage }) {
+import { session } from '../../../hooks/session';
 
-  // утилиты для перевода текста в речь
-  const { speak, voices } = useSpeechSynthesis();
-  // определяем язык приложения
-  const lang = document.documentElement.lang || 'en';
-  // мне нравится голос от гугла
-  const voice = voices.find((v) => v.lang.includes(lang) && v.name.includes('Google'));
-
-  // элемент для рендеринга зависит от типа сообщения
-  let element;
-
+export default function MessageBox({ message, removeMessage }) {
+  // const { speak, voices } = useSpeechSynthesis();
   const { type, text } = message;
+  const { user_id } = session;
+  // const lang = document.documentElement.lang || 'en';
+  // const voice = voices.find((v) => v.lang.includes(lang) && v.name.includes('Google'));
 
-  // формируем абсолютный путь к файлу
-  const pathToFile = `${process.env.REACT_APP_SERVER_URI}/files${text}`;
+  // let element;
 
-  // определяем элемент для рендеринга на основе типа сообщения
-  switch (type) {
-    case 'text':
-      element = (
-        <>
-          <button
-            className="btn"
-            // озвучиваем текст при нажатии кнопки
-            onClick={() => speak({ text, voice })}
-          >
-            <GiSpeaker className="icon speak" />
-          </button>
-          <Typography>{text}</Typography>
-        </>
-      );
-      break;
-    case 'image':
-      element = <img src={pathToFile} alt="" />;
-      break;
-    case 'audio':
-      element = <audio src={pathToFile} controls></audio>;
-      break;
-    case 'video':
-      element = <video src={pathToFile} controls></video>;
-      break;
-    default:
-      return null;
-  }
+  // const pathToFile = `${process.env.REACT_APP_SERVER_URI}/files${text}`;
+
+  // switch (type) {
+  //   case 'text':
+  //     element = (
+  //       <>
+  //         <button
+  //           className="btn"
+  //           // озвучиваем текст при нажатии кнопки
+  //           onClick={() => speak({ text, voice })}
+  //         >
+  //           <GiSpeaker className="icon speak" />
+  //         </button>
+  //         <Typography>{text}</Typography>
+  //       </>
+  //     );
+  //     break;
+  //   case 'image':
+  //     element = <img src={pathToFile} alt="" />;
+  //     break;
+  //   case 'audio':
+  //     element = <audio src={pathToFile} controls></audio>;
+  //     break;
+  //   case 'video':
+  //     element = <video src={pathToFile} controls></video>;
+  //     break;
+  //   default:
+  //     return null;
+  // }
 
   // определяем принадлежность сообщения текущему пользователю
-  const isMyMessage = 1 === message.author_id;
+  const isMyMessage = user_id === message.author_id;
 
   return (
     <Container key={message.id}>

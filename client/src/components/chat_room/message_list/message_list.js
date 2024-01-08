@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import MessageItem from './message_item';
+import MessageBox from './message_item';
 import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
 import Grid from '@mui/material/Grid';
@@ -38,7 +38,7 @@ export default function MessageList({ messages, removeMessage }) {
       <h2>Messages</h2>
       <List key={'messages list'} sx={{ width: '100%', maxWidth: 360, bgcolor: '#c7f5ff' }}>
         {messages.map((message) => (
-          <MessageItem key={message.id} message={message} removeMessage={removeMessage} />
+          <MessageBox key={message.id} message={message} removeMessage={removeMessage} />
         ))}
         <Typography ref={bottomRef}></Typography>
         {/* <Typography ref={logRef} className="log">
