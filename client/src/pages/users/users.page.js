@@ -17,7 +17,5 @@ export default function UsersPage() {
     fetchData();
   }, []);
 
-
-
   return <UserList users={users} />;
 }

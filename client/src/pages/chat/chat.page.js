@@ -9,6 +9,8 @@ import { axiosAPI } from '../../hooks/api';
 import useUsers from '../../hooks/useUsers';
 import UserList from '../../components/chat_room/user_list/user_list.page';
 import Container from '@mui/material/Container';
+import TextField from '@mui/material/TextField';
+import MessageInputNEW from '../../components/chat_room/message_input/message_input.component';
 
 export const ChatPage = () => {
   const { chat_id } = useParams();
@@ -48,8 +50,9 @@ export const ChatPage = () => {
         removeMessage={removeMessage}
         chat_id={chat_id}
       />
-      <MessageInput className="message input" sendMessage={sendMessage} chat_id={chat_id} />
 
+      <MessageInputNEW className="message input" sendMessage={sendMessage} chat_id={chat_id} />
+      {/* <MessageInput className="message input" sendMessage={sendMessage} chat_id={chat_id} /> */}
       <UserList className="user list" users={online_users} />
     </Container>
   );

@@ -1,6 +1,8 @@
 import { CgTrashEmpty } from 'react-icons/cg';
-import { GiSpeaker } from 'react-icons/gi';
-import { useSpeechSynthesis } from 'react-speech-kit';
+// import { GiSpeaker } from 'react-icons/gi';
+// import { useSpeechSynthesis } from 'react-speech-kit';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
 import TimeAgo from 'react-timeago';
 import Divider from '@mui/material/Divider';
 import * as React from 'react';
@@ -56,7 +58,7 @@ export default function MessageBox({ message, removeMessage }) {
 
   return (
     <Container key={message.id}>
-      <ListItem alignItems="flex-start" sx={{ width: '100%', maxWidth: 360, bgcolor: '#c7ffd3' }}>
+      <ListItem alignItems="flex-start" sx={{ width: '100%', maxWidth: 360, bgcolor: '#c7ffd3', borderRadius: '20px' }}>
         <ListItemAvatar>
           <Avatar alt="" src="/static/images/avatar/1.jpg" />
         </ListItemAvatar>
@@ -67,11 +69,7 @@ export default function MessageBox({ message, removeMessage }) {
               <Typography sx={{ display: 'inline' }} component="span" variant="body2" color="text.primary">
                 {text}
               </Typography>
-              {isMyMessage && (
-                <button className="btn" onClick={() => removeMessage(message)}>
-                  <CgTrashEmpty className="icon remove" />
-                </button>
-              )}
+
               <Typography
                 className="datetime"
                 // sx={{ display: '' }}
@@ -80,12 +78,23 @@ export default function MessageBox({ message, removeMessage }) {
                 color="text.primary"
               >
                 <TimeAgo date={message.create_at} />
+                {isMyMessage && (
+                  <IconButton
+                    variant="contained"
+                    onClick={() => removeMessage(message)}
+                    sx={{ maxWidth: 25, maxHeight: 25 }}
+                    aria-label="delete"
+                    size="small"
+                  >
+                    <DeleteIcon fontSize="inherit" />
+                  </IconButton>
+                )}
               </Typography>
             </React.Fragment>
           }
         />
       </ListItem>
-      <Divider variant="inset" component="li" />
+      <Divider variant="middle" component="li" />
     </Container>
   );
 }

@@ -1,8 +1,9 @@
 import { useEffect, useRef } from 'react';
-import MessageBox from './message_item';
+import MessageBox from './message_box';
 import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
 import Grid from '@mui/material/Grid';
+import MessageBoxNext from './message_box_next';
 
 export default function MessageList({ messages, removeMessage }) {
   // иммутабельная ссылка на элемент для отображения системных сообщений
@@ -33,13 +34,21 @@ export default function MessageList({ messages, removeMessage }) {
   //   }
   // }, [log]);
 
+  let isBefore = false;
   return (
     <Grid className="container message">
       <h2>Messages</h2>
-      <List key={'messages list'} sx={{ width: '100%', maxWidth: 360, bgcolor: '#c7f5ff' }}>
-        {messages.map((message) => (
-          <MessageBox key={message.id} message={message} removeMessage={removeMessage} />
-        ))}
+      <List key={'messages list'} sx={{ width: '100%', maxWidth: 360, bgcolor: '#07c2db', borderRadius: '20px' }}>
+        {messages.map((message, index) => {
+          if (index > 0) {
+            isBefore = messages[index - 1].author_id === message.author_id;
+          }
+          return isBefore ? (
+            <MessageBoxNext key={message.id} message={message} removeMessage={removeMessage} />
+          ) : (
+            <MessageBox key={message.id} message={message} removeMessage={removeMessage} />
+          );
+        })}
         <Typography ref={bottomRef}></Typography>
         {/* <Typography ref={logRef} className="log">
           {log}
