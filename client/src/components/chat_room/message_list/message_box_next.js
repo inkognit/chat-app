@@ -13,14 +13,14 @@ export default function MessageBoxNext({ message, removeMessage }) {
   const { text } = message;
   const { user_id } = session;
   const isMyMessage = user_id === message.author_id;
-  
+
   function onClickDelete() {
     removeMessage({ message_ids: [message.id] });
   }
 
   return (
     <Container key={message.id}>
-      <ListItem alignItems="flex-start" sx={{ width: '100%', maxWidth: 360, bgcolor: '#c7ffd3', borderRadius: '20px' }}>
+      <ListItem alignItems="flex-start" sx={{ bgcolor: '#c7ffd3', borderRadius: '20px' }}>
         <ListItemText
           secondary={
             <React.Fragment>

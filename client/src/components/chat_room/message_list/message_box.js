@@ -60,7 +60,7 @@ export default function MessageBox({ message, removeMessage }) {
   const isMyMessage = user_id === message.author_id;
 
   return (
-    <Container key={message.id}>
+    <Container dense={''} key={message.id}>
       <ListItem alignItems="flex-start" sx={{ width: '100%', maxWidth: 360, bgcolor: '#c7ffd3', borderRadius: '20px' }}>
         <ListItemAvatar>
           <Avatar alt="" src="/static/images/avatar/1.jpg" />

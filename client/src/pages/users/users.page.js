@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { axiosAPI } from '../../hooks/api';
-import UserList from '../../components/chat_room/user_list/user_list.page';
+import UserList from '../../components/chat_room/user_list/user_list.component';
 
 export default function UsersPage() {
   const [users, setUsers] = useState([]);
