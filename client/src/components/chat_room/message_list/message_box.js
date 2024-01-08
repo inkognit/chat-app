@@ -66,7 +66,7 @@ export default function MessageBox({ message, removeMessage }) {
           <Avatar alt="" src="/static/images/avatar/1.jpg" />
         </ListItemAvatar>
         <ListItemText
-          primary={isMyMessage ? 'Me' : message.author_id}
+          primary={isMyMessage ? 'Me' : message.author_name}
           secondary={
             <React.Fragment>
               <Typography sx={{ display: 'inline' }} component="span" variant="body2" color="text.primary">

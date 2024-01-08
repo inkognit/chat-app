@@ -25,8 +25,9 @@ class MessageService {
         },
         chat_id: +data.chat_id,
       },
+      include: { author: { select: { name: true } } },
     });
-    return messages;
+    return messages.map(({ author, ...m }) => ({ ...m, author_name: author.name }));
   }
 
   async get_message(id) {
@@ -47,7 +48,6 @@ class MessageService {
   }
 
   async delete_message(ids) {
-
     const message = await this.prisma.message.deleteMany({ where: { id: { in: ids } } });
     return message;
   }
