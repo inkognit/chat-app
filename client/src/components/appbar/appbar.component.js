@@ -14,6 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 // import { Link } from 'react-router-dom';
 import MenuButton from './menu-button.component';
+import { routes } from '../../routes/routes';
 
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
@@ -60,8 +61,9 @@ function ResponsiveAppBar() {
           </Typography>
           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            <MenuButton to={'/chats'} title={'Чаты'} />
-            <MenuButton to={'/users'} title={'Пользователи'} />
+            <MenuButton to={routes.chats} title={'Чаты'} />
+            <MenuButton to={routes.users} title={'Пользователи'} />
+             <MenuButton to={routes.sign_in} title={'тестовая авторизация'} />
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>

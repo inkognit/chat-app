@@ -1,5 +1,7 @@
 // const server_routes = (uri) => (process.env.SERVER_URI || 'http://localhost:3001') + uri;
 export const routes = {
+  main: '/',
+  
   users: '/users',
   user: '/users/',
 
@@ -7,4 +9,5 @@ export const routes = {
   chat: '/chats/',
 
   sign_in: '/sign-in',
+  sign_up: '/sign-up',
 };

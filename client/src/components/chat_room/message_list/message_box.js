@@ -56,7 +56,6 @@ export default function MessageBox({ message, removeMessage }) {
     removeMessage({ message_ids: [message.id] });
   }
 
-  // определяем принадлежность сообщения текущему пользователю
   const isMyMessage = user_id === message.author_id;
 
   return (

@@ -7,10 +7,12 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 
 import CheckCircleOutlineRoundedIcon from '@mui/icons-material/CheckCircleOutlineRounded';
+import { ListItemLink } from '../../general/lists.component';
+import { routes } from '../../../routes/routes';
 
 export default function UserList({ users = [] }) {
   return (
-    <Grid className="container message">
+    <Grid className="container users">
       <Typography variant="h4" component="h4">
         Пользователи
       </Typography>
@@ -33,9 +35,9 @@ export default function UserList({ users = [] }) {
               secondaryAction={<CheckCircleOutlineRoundedIcon color={user.is_active ? 'success' : 'black'} />}
               disablePadding
             >
-              <ListItemButton>
+              <ListItemLink to={routes.user + `${user.id}`}>
                 <ListItemText id={user.id} primary={user.name} />
-              </ListItemButton>
+              </ListItemLink>
             </ListItem>
           );
         })}
