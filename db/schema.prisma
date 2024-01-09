@@ -8,13 +8,33 @@ generator client {
 }
 
 model user {
-    id        Int         @id @default(autoincrement())
-    email     String      @unique
-    name      String?
-    create_at DateTime    @default(now())
-    update_at DateTime    @updatedAt()
-    user_chat user_chat[]
-    message   message[]
+    id          Int         @id @default(autoincrement())
+    email       String      @unique
+    login       String      @unique
+    password    String
+    first_name  String
+    middle_name String?
+    last_name   String
+    name        String?
+    avatar      Bytes?
+    user_chat   user_chat[]
+    message     message[]
+    session     session[]
+    create_at   DateTime    @default(now())
+    update_at   DateTime    @updatedAt()
+}
+
+model session {
+    id            Int      @id @default(autoincrement())
+    user          user     @relation(fields: [user_id], references: [id])
+    user_id       Int
+    access_token  String
+    refresh_token String
+    ip            String
+    device_info   String
+    is_used       Boolean? @default(false)
+    create_at     DateTime @default(now())
+    update_at     DateTime @updatedAt()
 }
 
 model message {
@@ -23,10 +43,10 @@ model message {
     type      String
     author    user     @relation(fields: [author_id], references: [id])
     author_id Int
-    create_at DateTime @default(now())
-    update_at DateTime @updatedAt()
     chat_id   Int
     chat      chat     @relation(fields: [chat_id], references: [id])
+    create_at DateTime @default(now())
+    update_at DateTime @updatedAt()
 }
 
 model chat {
@@ -34,9 +54,9 @@ model chat {
     title      String
     messages   message[]
     creator_id Int         @default(0)
+    user_chat  user_chat[]
     create_at  DateTime    @default(now())
     update_at  DateTime    @updatedAt()
-    user_chat  user_chat[]
 }
 
 model user_chat {
@@ -45,7 +65,7 @@ model user_chat {
     chat_id   Int
     user      user     @relation(fields: [user_id], references: [id])
     user_id   Int
+    is_active Boolean  @default(false)
     create_at DateTime @default(now())
     update_at DateTime @updatedAt()
-    is_active Boolean  @default(false)
 }

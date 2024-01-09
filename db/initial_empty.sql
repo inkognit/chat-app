@@ -5,7 +5,7 @@
 -- Dumped from database version 14.2
 -- Dumped by pg_dump version 14.2
 
--- Started on 2024-01-09 16:33:40
+-- Started on 2024-01-09 16:33:14
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -471,7 +471,7 @@ ALTER TABLE ONLY public.user_chat
     ADD CONSTRAINT user_chat_user_id_fkey FOREIGN KEY (user_id) REFERENCES public."user"(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
--- Completed on 2024-01-09 16:33:41
+-- Completed on 2024-01-09 16:33:15
 
 --
 -- PostgreSQL database dump complete

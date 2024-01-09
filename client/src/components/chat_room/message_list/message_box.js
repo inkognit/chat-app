@@ -1,4 +1,4 @@
-import { CgTrashEmpty } from 'react-icons/cg';
+// import { CgTrashEmpty } from 'react-icons/cg';
 // import { GiSpeaker } from 'react-icons/gi';
 // import { useSpeechSynthesis } from 'react-speech-kit';
 import IconButton from '@mui/material/IconButton';
