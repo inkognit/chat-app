@@ -4,23 +4,22 @@ class UserService {
   constructor() {
     this.prisma = new PrismaClient();
   }
-  async post_user(data) {
-    const is_check = await this.prisma.user.count({ where: { email: data.email } });
-    if (is_check) throw { message: 'Такой email уже используется' };
-    const user = await this.prisma.user.create({
-      data: {
-        name: data.name,
-        email: data.email,
-      },
-    });
-    return user;
-  }
 
   async get_users(data) {
     const users = await this.prisma.user.findMany({
       where: {
         name: { contains: data.name, mode: 'insensitive' },
         email: { contains: data.email, mode: 'insensitive' },
+      },
+      select: {
+        id: true,
+        email: true,
+        login: true,
+        first_name: true,
+        middle_name: true,
+        last_name: true,
+        name: true,
+        avatar: true,
       },
     });
     return users;

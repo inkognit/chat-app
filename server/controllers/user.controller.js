@@ -1,17 +1,6 @@
 import UserService from '../services/user.services.js';
 
 export default class UserController {
-  async post_user(req, res) {
-    try {
-      const { body } = req;
-      const user_service = new UserService();
-      const resp = await user_service.post_user(body);
-      return res.send(resp);
-    } catch (error) {
-      return res.send({ message: error.message ? error.message : error });
-    }
-  }
-
   async get_users(req, res) {
     try {
       const { query } = req;
