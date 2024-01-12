@@ -12,7 +12,10 @@ import MessageInputNEW from '../../components/chat_room/message_input/message_in
 
 export const ChatPage = () => {
   const { chat_id } = useParams();
-  const { user_id } = session;
+  const {
+    user: { id: user_id },
+  } = session;
+
   const [chat, setChat] = useState(null);
   const { messages, log, sendMessage, removeMessage } = useChat({ user_id, chat_id });
   useEffect(() => {
@@ -29,13 +32,16 @@ export const ChatPage = () => {
       }
     }
     fetchData();
-  }, []);
+  }, [chat_id, user_id]);
+
   let { users } = useUsers({ user_id });
+  // alert(JSON.stringify(chat));
   let online_users;
-  if (users.length) {
+
+  if (users.length && chat && chat.users.length) {
     online_users = chat.users.map((ul) => ({ ...ul, is_active: users.includes(ul.id) }));
   } // хз почему ломается от обычного else
-  if (!users) {
+  if (!users && chat && chat.users.length) {
     online_users = chat.users.map((ul) => ({ ...ul, is_active: false }));
   }
 

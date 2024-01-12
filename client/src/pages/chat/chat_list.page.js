@@ -25,7 +25,7 @@ const DemoPaper = styled(Paper)(({ theme }) => ({
 }));
 
 export const ChatListPage = () => {
-  const { user_id } = session;
+  const { user } = session;
   const [chats, setChats] = useState([]);
   // const { users } = useUsers({ user_id });
 
@@ -35,7 +35,7 @@ export const ChatListPage = () => {
         const data = await axiosAPI({
           link: 'http://localhost:3000/api/chats',
           method: 'GET',
-          params: { user_id },
+          params: { user_id: user.id },
         });
 
         setChats(data);

@@ -34,8 +34,6 @@ export default function useUsers({ user_id }) {
   const connectUser = (user) => {
     socket.emit('user:add', user);
   };
-  //   const disconnectUser = (user) => {
-  //     socket.emit('', user);
-  //   };
+
   return { users, connectUser };
 }

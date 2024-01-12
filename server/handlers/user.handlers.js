@@ -10,6 +10,7 @@ export default function userHandlers(io, socket) {
   socket.on('active_users:get', () => {
     updateUserList();
   });
+  
   socket.on('user:add', async () => {
     socket.to(user_id).emit('log', `User ${user_id} connected`);
     // записываем идентификатор сокета пользователя

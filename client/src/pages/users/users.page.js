@@ -14,7 +14,8 @@ export default function UsersPage() {
           method: 'GET',
         });
         if (data) {
-          setUsers(data);
+
+          setUsers(data.map((ul) => ({ ...ul, is_active: users.includes(ul.id) })));
         }
       } catch (err) {
         console.log(err);

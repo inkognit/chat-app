@@ -28,7 +28,7 @@ export default function UserList({ users = [] }) {
         }}
       >
         {users &&
-          users.length &&
+          
           users.map((user) => {
             return (
               <ListItem
@@ -37,7 +37,7 @@ export default function UserList({ users = [] }) {
                 disablePadding
               >
                 <ListItemLink to={routes.user + `${user.id}`}>
-                  <ListItemText id={user.id} primary={user.name} />
+                  <ListItemText id={user.id} primary={`${user.first_name} ${user.last_name}`} />
                 </ListItemLink>
               </ListItem>
             );

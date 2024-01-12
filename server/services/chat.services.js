@@ -39,7 +39,20 @@ class ChatService {
   async get_chat(chat_id, user_id) {
     const { user_chat, ...chat } = await this.prisma.chat.findFirst({
       where: { user_chat: { some: { chat_id, user_id } } },
-      include: { user_chat: { select: { user: true } } },
+      include: {
+        user_chat: {
+          select: {
+            user: {
+              select: {
+                id: true,
+                last_name: true,
+                middle_name: true,
+                avatar: true,
+              },
+            },
+          },
+        },
+      },
     });
     return { ...chat, users: user_chat.map((uc) => uc.user) };
   }
