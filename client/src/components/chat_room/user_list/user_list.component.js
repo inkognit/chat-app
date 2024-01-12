@@ -3,7 +3,6 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 
 import CheckCircleOutlineRoundedIcon from '@mui/icons-material/CheckCircleOutlineRounded';
@@ -28,19 +27,21 @@ export default function UserList({ users = [] }) {
           borderRadius: '20px',
         }}
       >
-        {users.map((user) => {
-          return (
-            <ListItem
-              key={user.id}
-              secondaryAction={<CheckCircleOutlineRoundedIcon color={user.is_active ? 'success' : 'black'} />}
-              disablePadding
-            >
-              <ListItemLink to={routes.user + `${user.id}`}>
-                <ListItemText id={user.id} primary={user.name} />
-              </ListItemLink>
-            </ListItem>
-          );
-        })}
+        {users &&
+          users.length &&
+          users.map((user) => {
+            return (
+              <ListItem
+                key={user.id}
+                secondaryAction={<CheckCircleOutlineRoundedIcon color={user.is_active ? 'success' : 'black'} />}
+                disablePadding
+              >
+                <ListItemLink to={routes.user + `${user.id}`}>
+                  <ListItemText id={user.id} primary={user.name} />
+                </ListItemLink>
+              </ListItem>
+            );
+          })}
       </List>
     </Grid>
   );

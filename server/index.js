@@ -4,6 +4,7 @@ import { createServer } from 'http';
 import { Server } from 'socket.io';
 import onConnection from './services/socket_io.js';
 import routes from './routes/routes.js';
+import cookieParser from 'cookie-parser';
 
 const app = express();
 // app.use(
@@ -24,7 +25,11 @@ const app = express();
 //   //Auth Each API Request created by user.
 //   next();
 // });
+app.use(cookieParser());
 app.use(cors());
+app.use(express.json({ limit: '50Mb' }));
+app.use(express.urlencoded({ extended: false, limit: '50Mb' }));
+
 const PORT = process.env.SERVER_PORT || 3001;
 const server = createServer(app);
 const io = new Server(server, {

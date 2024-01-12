@@ -1,29 +1,15 @@
 import { sign_up, sign_in } from '../services/auth.service.js';
-import DeviceDetector from 'node-device-detector';
 import ipware from 'ipware';
+import { device_info } from '../utils/get_device_info.util.js';
 
 export const sign_in_controller = async (req, res) => {
   try {
-    const detector = new DeviceDetector({
-      clientIndexes: true,
-      deviceIndexes: true,
-      deviceAliasCode: false,
-    });
-
     const { body } = req;
-    const device_info = detector.detect(req.headers['user-agent']);
-    const device_info_string = JSON.stringify({
-      device_code: device_info.device.code,
-      device_model: device_info.device.model,
-      device_type: device_info.device.type,
-      client_type: device_info.client.type,
-      client_name: device_info.client.name,
-    });
+
     const { clientIp } = ipware().get_ip(req);
-    const data = await sign_in(body, device_info_string, clientIp);
+    const data = await sign_in(body, device_info(req.headers['user-agent']), clientIp);
     return res
-      .cookie('refresh_token', data.refresh_token, { httpOnly: true, sameSite: 'strict' })
-      .header('authorization', data.access_token)
+      .cookie('access_token', data.access_token, { httpOnly: true, sameSite: 'strict', secure: true })
       .send({ data });
   } catch (error) {
     res.send({ message: error.message || error });

@@ -1,19 +1,15 @@
+import { PrismaClient } from '@prisma/client';
 import jwt from 'jsonwebtoken';
+import { device_info } from '../utils/get_device_info.util.js';
 
-export const session = (req, res, next) => {
-  const access_token = req.headers['authorization'];
-  let refresh_token;
-  if (!req.cookies) {
-    const index = req.rawHeaders.findIndex((item) => item === 'cookie');
-    if (index < 0) {
-      return res.status(401).send('Access Denied. No token provided.');
-    }
-    refresh_token = req.rawHeaders[index + 1].substring(14);
-  } else {
-    refresh_token = req.cookies['refresh_token'];
-  }
+export const session = async (req, res, next) => {
+  const prisma = new PrismaClient();
+  // let refresh_token;
+  let access_token = req.headers['authorization'];
+
+
   const secret = Buffer.from(process.env.JWT_SECRET);
-  if ((!access_token || !access_token.startsWith('Bearer ')) && !refresh_token) {
+  if (!access_token || !access_token.startsWith('Bearer ')) {
     return res.status(401).send('Access Denied. No token provided.');
   }
 
@@ -22,19 +18,27 @@ export const session = (req, res, next) => {
     req.session = user;
     next();
   } catch (error) {
-    if (!refresh_token) {
-      return res.status(401).send('Access Denied. No refresh token provided.');
+    // if (!refresh_token) {
+    //   return res.status(401).send('Access Denied. No refresh token provided.');
+    // }
+
+    if (error.name !== 'TokenExpiredError') {
+      return res.status(400).send('Invalid Token.');
     }
-
     try {
-      const { user } = jwt.verify(refresh_token, secret);
-      const access_token = `Bearer ${jwt.sign({ user }, secret, { expiresIn: '1d' })}`;
+      let { user } = jwt.decode(access_token.substring(7), secret);
 
-      res
-        .cookie('refresh_token', refresh_token, { httpOnly: true, sameSite: 'strict' })
-        .header('authorization', access_token);
+      const { refresh_token } = await prisma.session.findFirst({
+        where: { user_id: user.id, device_info: device_info(req.headers['user-agent']), is_used: false },
+      });
+
+      jwt.verify(refresh_token, secret);
+      access_token = `Bearer ${jwt.sign({ user }, secret, { expiresIn: '15m' })}`;
       req.session = user;
-      next();
+
+      res.cookie('access_token', access_token, { httpOnly: true, secure: true, sameSite: 'strict' })
+      .header('authorization', access_token);
+      return next();
     } catch (error) {
       return res.status(400).send('Invalid Token.');
     }

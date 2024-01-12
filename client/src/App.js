@@ -4,18 +4,18 @@ import './App.scss';
 import ResponsiveAppBar from './components/appbar/appbar.component';
 import storage from './utils/storage';
 import { Route, Routes } from 'react-router-dom';
-import { SignInPage } from './pages/users/sign-in.page';
+import { SignInPage } from './pages/users/sign-in.test.page';
 import useUsers from './hooks/useUsers';
 
 function App() {
-  const user = storage.get(process.env.REACT_APP_USER_KEY || 'chat_app_user');
+  const data = storage.get(process.env.REACT_APP_USER_KEY || 'chat_app_user');
 
-  const { connectUser } = useUsers({ user_id: user ? user.user_id : null });
+  const { connectUser } = useUsers({ user_id: data ? data.user.id : null });
   connectUser();
 
   return (
     <>
-      {user ? (
+      {data && data.user ? (
         <BrowserRouter>
           <ResponsiveAppBar />
           <AppRoutes />

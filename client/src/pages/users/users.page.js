@@ -8,9 +8,14 @@ export default function UsersPage() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const data = await axiosAPI({ link: 'http://localhost:3000/api/users', method: 'GET' });
-        console.log(data);
-        setUsers(data);
+
+        const data = await axiosAPI({
+          link: 'http://localhost:3000/api/users',
+          method: 'GET',
+        });
+        if (data) {
+          setUsers(data);
+        }
       } catch (err) {
         console.log(err);
       }

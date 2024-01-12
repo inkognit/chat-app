@@ -26,11 +26,11 @@ export const sign_in = async (data, device_info, ip) => {
     salt,
   });
   if (!access) throw { message: 'Нет доступа!' };
-  const access_token = `Bearer ${jwt.sign({ user }, secret, { expiresIn: '15m' })}`;
+  const access_token = `Bearer ${jwt.sign({ user }, secret, { expiresIn: '1m' })}`;
   const refresh_token = jwt.sign({ user }, secret, { expiresIn: '2d' });
 
   await prisma.session.updateMany({
-    where: { user_id: user.id, device_info, ip, is_used: false },
+    where: { user_id: user.id, device_info, is_used: false },
     data: { is_used: true },
   });
   await prisma.session.create({
