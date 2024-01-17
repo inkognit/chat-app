@@ -10,7 +10,8 @@ const app = express();
 // app.use(
 //   cors({
 //     origin: ['http://localhost'],
-//     allowedHeaders: ['Content-Type', 'Authorization', 'Access-Control-Allow-Methods', 'Access-Control-Request-Headers'],
+//     allowedHeaders:
+// ['Content-Type', 'Authorization', 'Access-Control-Allow-Methods', 'Access-Control-Request-Headers'],
 //     credentials: true,
 //     enablePreflight: true,
 //   }),
@@ -33,7 +34,8 @@ app.use(express.urlencoded({ extended: false, limit: '50Mb' }));
 const PORT = process.env.SERVER_PORT || 3001;
 const server = createServer(app);
 const io = new Server(server, {
-  cors: process.env.ALLOWED_ORIGIN,
+  // cors: process.env.ALLOWED_ORIGIN,
+  cors: { origin: process.env.ALLOWED_ORIGIN },
   serveClient: true,
 });
 

@@ -8,7 +8,7 @@ export default function onConnection(io, socket) {
   socket.chat_id = +chat_id;
   socket.user_id = +user_id;
 
-  // присоединяемся к комнате
+
   socket.join(+chat_id);
   socket.join(+user_id);
 

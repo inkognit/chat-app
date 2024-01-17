@@ -8,6 +8,7 @@ export default function useUsers({ user_id }) {
     io(process.env.REACT_APP_SERVER_URI, {
       // forceNew: true,
       autoConnect: false,
+      reconnectionDelayMax: 1000,
       query: {
         user_id,
       },

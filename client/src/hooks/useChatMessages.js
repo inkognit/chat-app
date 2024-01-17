@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { io } from 'socket.io-client';
 
-export default function useChat({ user_id, chat_id }) {
+export default function useChatMessages({ user_id, chat_id }) {
   const [messages, setMessages] = useState([]);
   // const [log, setLog] = useState(null);
 
@@ -9,6 +9,7 @@ export default function useChat({ user_id, chat_id }) {
     io(process.env.REACT_APP_SERVER_URI, {
       // forceNew: true,
       autoConnect: false,
+      reconnectionDelayMax: 10000,
       query: {
         chat_id,
         user_id,
@@ -17,24 +18,25 @@ export default function useChat({ user_id, chat_id }) {
   );
 
   useEffect(() => {
-    if (!socket) {
-      return;
-    }
-    socket.connect()
-    socket.emit('message:get');
-
-    // socket.on('log', (log) => {
-    //   setLog(log);
-    // });
-    socket.on('messages:update', (messages) => {
-      setMessages(messages);
-    });
-    return () => {
-      socket.disconnect();
-    };
+    setTimeout(() => {
+      if (!socket) {
+        return;
+      }
+      socket.connect();
+      socket.emit('message:get');
+      // alert(messages)
+      // socket.on('log', (log) => {
+      //   setLog(log);
+      // });
+      socket.on('messages:update', (messages) => {
+        setMessages(messages);
+      });
+      return () => {
+        socket.disconnect();
+      };
+    }, 1000);
   }, [socket]);
 
-  // метод для отправки сообщения
   const sendMessage = (message) => {
     socket.emit('message:add', message);
   };

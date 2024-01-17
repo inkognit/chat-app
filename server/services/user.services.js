@@ -13,12 +13,9 @@ class UserService {
       },
       select: {
         id: true,
-        email: true,
-        login: true,
         first_name: true,
         middle_name: true,
         last_name: true,
-        name: true,
         avatar: true,
       },
     });
@@ -28,6 +25,16 @@ class UserService {
   async get_user(id) {
     const user = await this.prisma.user.findUnique({
       where: { id },
+      select: {
+        id: true,
+        email: true,
+        login: true,
+        first_name: true,
+        middle_name: true,
+        last_name: true,
+        name: true,
+        avatar: true,
+      },
     });
     return user;
   }

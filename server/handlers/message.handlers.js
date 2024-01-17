@@ -9,25 +9,21 @@ export default function messageHandlers(io, socket) {
   const chat_id = +socket.chat_id;
   const user_id = +socket.user_id;
 
-  // утилита для обновления списка сообщений
   const updateMessageList = () => {
-    const chat_messages = messages[chat_id];
-    io.to(chat_id).emit('messages:update', chat_messages);
+    io.to(chat_id).emit('messages:update',messages[chat_id] );
   };
 
-  // обрабатываем получение сообщений
   socket.on('message:get', async () => {
     try {
       const _messages = await message_service.get_messages({ chat_id });
       messages[chat_id] = _messages;
-
       updateMessageList();
     } catch (e) {
       onError(e);
     }
   });
 
-  // обрабатываем создание нового сообщения
+
   socket.on('message:add', async (message) => {
     try {
       await message_service.post_message({

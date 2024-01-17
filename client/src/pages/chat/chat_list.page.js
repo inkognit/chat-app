@@ -4,10 +4,10 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 // import ListItemAvatar from '@mui/material/ListItemAvatar';
-import Paper from '@mui/material/Paper';
+// import Paper from '@mui/material/Paper';
 import { axiosAPI } from '../../hooks/api';
 import Typography from '@mui/material/Typography';
-import { styled } from '@mui/material/styles';
+// import { styled } from '@mui/material/styles';
 // import { ButtonLink } from '../../components/appbar/menu-button.component';
 import { routes } from '../../routes/routes';
 import { session } from '../../hooks/session';
@@ -15,17 +15,17 @@ import { session } from '../../hooks/session';
 import { ListItemLink } from '../../components/general/lists.component';
 // import useUsers from '../../hooks/useUsers';
 
-const DemoPaper = styled(Paper)(({ theme }) => ({
-  width: 120,
-  height: 15,
-  margin: 5,
-  padding: theme.spacing(2),
-  ...theme.typography.body2,
-  textAlign: 'center',
-}));
+// const DemoPaper = styled(Paper)(({ theme }) => ({
+//   width: 120,
+//   height: 15,
+//   margin: 5,
+//   padding: theme.spacing(2),
+//   ...theme.typography.body2,
+//   textAlign: 'center',
+// }));
 
 export const ChatListPage = () => {
-  const { user } = session;
+  const  user  = session;
   const [chats, setChats] = useState([]);
   // const { users } = useUsers({ user_id });
 
@@ -44,7 +44,7 @@ export const ChatListPage = () => {
       }
     }
     fetchData();
-  }, []);
+  }, [user.id]);
 
   return (
     <Grid container direction="row" justifyContent="center" alignItems="flex-start">

@@ -6,7 +6,7 @@ export default function chatHandlers(io, socket) {
   const chat_service = new ChatService();
   const { user_id } = socket;
 
-  // утилита для обновления списка сообщений
+
   const updateChatList = () => {
     io.to(user_id).emit('chat_list:update', chats[user_id]);
   };

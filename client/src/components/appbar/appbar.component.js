@@ -15,10 +15,12 @@ import AdbIcon from '@mui/icons-material/Adb';
 // import { Link } from 'react-router-dom';
 import MenuButton from './menu-button.component';
 import { routes } from '../../routes/routes';
+import { session } from '../../hooks/session';
 
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function ResponsiveAppBar() {
+  const { id: session_user_id } = session;
   // const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -63,13 +65,13 @@ function ResponsiveAppBar() {
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             <MenuButton to={routes.chats} title={'Чаты'} />
             <MenuButton to={routes.users} title={'Пользователи'} />
-             <MenuButton to={routes.sign_in} title={'тестовая авторизация'} />
+            <MenuButton to={routes.sign_in} title={'тестовая авторизация'} />
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Профиль">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp"  />
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }} href={routes.user + session_user_id}>
+                <Avatar alt="Remy Sharp" />
               </IconButton>
             </Tooltip>
             <Menu

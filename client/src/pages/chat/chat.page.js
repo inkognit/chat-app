@@ -1,8 +1,9 @@
-import useChat from '../../hooks/useChat';
+import useChatMessages from '../../hooks/useChatMessages';
 import MessageList from '../../components/chat_room/message_list/message_list';
 import { useParams } from 'react-router';
 import { session } from '../../hooks/session';
 import { useEffect, useState } from 'react';
+import Typography from '@mui/material/Typography';
 import { axiosAPI } from '../../hooks/api';
 import useUsers from '../../hooks/useUsers';
 import UserList from '../../components/chat_room/user_list/user_list.component';
@@ -12,56 +13,57 @@ import MessageInputNEW from '../../components/chat_room/message_input/message_in
 
 export const ChatPage = () => {
   const { chat_id } = useParams();
-  const {
-    user: { id: user_id },
-  } = session;
+  const { id: user_id } = session;
 
-  const [chat, setChat] = useState(null);
-  const { messages, log, sendMessage, removeMessage } = useChat({ user_id, chat_id });
+  const [chat, setChat] = useState({});
+  const [users, setUsers] = useState([]);
+  const { messages, sendMessage, removeMessage } = useChatMessages({ user_id, chat_id });
+  let { users: online } = useUsers({ user_id });
   useEffect(() => {
-    async function fetchData() {
+    (async () => {
       try {
-        const data = await axiosAPI({
+        const { users, ...chat } = await axiosAPI({
           link: `http://localhost:3000/api/chats/${chat_id}`,
           method: 'GET',
           params: { chat_id, user_id },
         });
-        setChat(data);
+        setChat(chat);
+        // alert(JSON.stringify(online));
+        // setUsers(users);
+        setUsers(users.map((ul) => ({ ...ul, is_active: online.includes(ul.id) })));
+        // if (users && users.length && online && online.length) {
+        //   setUsers(users.map((ul) => ({ ...ul, is_active: online.includes(ul.id) })));
+        // } // хз почему ломается от обычного else
+        // if (!users && chat && users.length) {
+        //   alert(JSON.stringify(users));
+        //   setUsers(users.map((ul) => ({ ...ul, is_active: false })));
+        // }
       } catch (err) {
         console.log(err);
       }
-    }
-    fetchData();
-  }, [chat_id, user_id]);
-
-  let { users } = useUsers({ user_id });
-  // alert(JSON.stringify(chat));
-  let online_users;
-
-  if (users.length && chat && chat.users.length) {
-    online_users = chat.users.map((ul) => ({ ...ul, is_active: users.includes(ul.id) }));
-  } // хз почему ломается от обычного else
-  if (!users && chat && chat.users.length) {
-    online_users = chat.users.map((ul) => ({ ...ul, is_active: false }));
-  }
+    })();
+  }, [chat_id, online, user_id]);
 
   return (
-    <Grid container direction="row" justifyContent="center" alignItems="flex-start" spacing={{ xs: 12 }}>
-      <Grid item xs={2}>
-        <UserList className="user list" users={online_users} />
-      </Grid>
-      <Grid item xs={3}>
-        <MessageList
-          className="message list"
-          // log={log}
-          messages={messages}
-          removeMessage={removeMessage}
-          // chat_id={chat_id}
-        />
+    <Grid item xs={12} direction="column" justifyContent="center" alignItems="flex-start" spacing={{ xs: 12 }}>
+      <Typography>{chat.title}</Typography>
+      <Grid container direction="row" justifyContent="center" alignItems="flex-start" spacing={{ xs: 12 }}>
+        <Grid item xs={2}>
+          <UserList className="user list" users={users} />
+        </Grid>
+        <Grid item xs={3}>
+          <MessageList
+            className="message list"
+            // log={log}
+            messages={messages}
+            removeMessage={removeMessage}
+            // chat_id={chat_id}
+          />
 
-        <MessageInputNEW className="message input" sendMessage={sendMessage} chat_id={chat_id} />
+          <MessageInputNEW className="message input" sendMessage={sendMessage} chat_id={chat_id} />
+        </Grid>
+        {/* <MessageInput className="message input" sendMessage={sendMessage} chat_id={chat_id} /> */}
       </Grid>
-      {/* <MessageInput className="message input" sendMessage={sendMessage} chat_id={chat_id} /> */}
     </Grid>
   );
 };
