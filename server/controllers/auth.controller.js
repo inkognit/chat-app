@@ -1,4 +1,4 @@
-import { sign_up, sign_in } from '../services/auth.service.js';
+import { sign_up, sign_in, sign_out } from '../services/auth.service.js';
 import ipware from 'ipware';
 import { device_info } from '../utils/get_device_info.util.js';
 
@@ -38,9 +38,9 @@ export const refresh_token_controller = async (req, res) => {
 
 export const sign_out_controller = async (req, res) => {
   try {
-    const { body } = req;
-    const data = await sign_up(body);
-    return res.send({ data });
+    const { id: user_id } = req.session;
+    const result = await sign_out( user_id,  device_info(req.headers['user-agent']) );
+    return res.send({ ...result });
   } catch (error) {
     res.send({ message: error.message || error });
   }

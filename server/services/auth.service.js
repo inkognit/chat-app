@@ -76,3 +76,12 @@ export const sign_up = async (data) => {
 export const refresh_token = async () => {
   return;
 };
+
+export const sign_out = async (user_id, device_info) => {
+  const prisma = new PrismaClient();
+  await prisma.session.update({
+    where: { user_id, is_used: false, device_info },
+    data: { is_used: true },
+  });
+  return { message: 'ok' };
+};

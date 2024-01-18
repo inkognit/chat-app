@@ -12,8 +12,7 @@ function App() {
   const user = storage.get(process.env.REACT_APP_USER_KEY || 'chat_app_user');
     const { connectUser } = useSocket({ user_id: user ? user.id : null });
 
-  useRef(connectUser())
-  
+  useRef(connectUser()) 
 
   return (
     <>

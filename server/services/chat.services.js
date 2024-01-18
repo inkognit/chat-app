@@ -46,6 +46,7 @@ class ChatService {
               select: {
                 id: true,
                 last_name: true,
+                first_name: true,
                 middle_name: true,
                 avatar: true,
               },

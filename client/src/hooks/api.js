@@ -42,9 +42,14 @@ export const axiosAPI = async ({ link, method, body, params, headers = {} }) => 
         }
         return delete_data;
       default:
-        throw { message: 'Не все Параметры указаны' };
+        throw new Error({ message: 'Не все Параметры указаны' });
     }
   } catch (error) {
-    return { error: error.messsage || error };
+    alert(JSON.stringify(error.response.data));
+    if (error.response.data === 'Invalid Token.') {
+      storage.remove('chat_app_user_authorization');
+      storage.remove('chat_app_user');
+    }
+    throw new Error({ error: error.response.data || error.messsage || error });
   }
 };

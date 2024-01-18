@@ -25,19 +25,11 @@ export const ChatPage = () => {
         const { users, ...chat } = await axiosAPI({
           link: `http://localhost:3000/api/chats/${chat_id}`,
           method: 'GET',
-          params: { chat_id, user_id },
+          params: { user_id },
         });
         setChat(chat);
         // alert(JSON.stringify(online));
-        // setUsers(users);
         setUsers(users.map((ul) => ({ ...ul, is_active: online.includes(ul.id) })));
-        // if (users && users.length && online && online.length) {
-        //   setUsers(users.map((ul) => ({ ...ul, is_active: online.includes(ul.id) })));
-        // } // хз почему ломается от обычного else
-        // if (!users && chat && users.length) {
-        //   alert(JSON.stringify(users));
-        //   setUsers(users.map((ul) => ({ ...ul, is_active: false })));
-        // }
       } catch (err) {
         console.log(err);
       }
