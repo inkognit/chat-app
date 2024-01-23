@@ -53,6 +53,7 @@ export default function MessageBox({ message, removeMessage }) {
   //     return null;
   // }
   function onClickDelete() {
+    alert(JSON.stringify(message));
     removeMessage({ message_ids: [message.id] });
   }
 

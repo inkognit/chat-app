@@ -18,23 +18,20 @@ export default function useChatMessages({ user_id, chat_id }) {
   );
 
   useEffect(() => {
-    setTimeout(() => {
-      if (!socket) {
-        return;
-      }
-      socket.connect();
-      socket.emit('message:get');
-      // alert(messages)
-      // socket.on('log', (log) => {
-      //   setLog(log);
-      // });
-      socket.on('messages:update', (messages) => {
-        setMessages(messages);
-      });
-      return () => {
-        socket.disconnect();
-      };
-    }, 1000);
+    if (!socket) {
+      return;
+    }
+    socket.connect();
+    socket.emit('message:get');
+    // socket.on('log', (log) => {
+    //   setLog(log);
+    // });
+    socket.on('messages:update', (messages) => {
+      setMessages(messages);
+    });
+    return () => {
+      socket.disconnect();
+    };
   }, [socket]);
 
   const sendMessage = (message) => {

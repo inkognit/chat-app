@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { io } from 'socket.io-client';
+// import { Socket } from './socket';
 
 export default function useUsers({ user_id }) {
   const [users, setUsers] = useState([]);
@@ -14,6 +15,7 @@ export default function useUsers({ user_id }) {
       },
     }),
   );
+  // const { socket } = Socket({ user_id });
 
   useEffect(() => {
     if (!socket) {
@@ -25,6 +27,7 @@ export default function useUsers({ user_id }) {
     //   setLog(log);
     // });
     socket.on('users:update', (users) => {
+      // alert(JSON.stringify(users));
       setUsers(users);
     });
     return () => {
@@ -32,9 +35,9 @@ export default function useUsers({ user_id }) {
     };
   }, [socket]);
 
-  const connectUser = (user) => {
+  const ConnectUser = (user) => {
     socket.emit('user:add', user);
   };
 
-  return { users, connectUser };
+  return { users, ConnectUser };
 }

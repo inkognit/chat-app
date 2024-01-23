@@ -23,10 +23,10 @@ export default function messageHandlers(io, socket) {
     }
   });
 
-
   socket.on('message:add', async (message) => {
+    
     try {
-      await message_service.post_message({
+      message = await message_service.post_message({
         text: message.text,
         type: message.type || 'any',
         user_id,
@@ -34,21 +34,20 @@ export default function messageHandlers(io, socket) {
       });
     } catch (error) {
       console.log(error);
-      // ошибка сохраннеия сообщения
     }
-
-    message.create_at = Date.now();
+    // message.create_at = Date.now();
+    if (!messages[chat_id]) {messages[chat_id] = []};
     messages[chat_id].push(message);
 
     updateMessageList();
   });
 
-  socket.on('message:remove', ({ message_ids }) => {
+  socket.on('message:remove', (messages) => {
     message_service.delete_message(message_ids);
     messages[chat_id] = messages[chat_id].filter((message) => {
       return !message_ids.includes(message.id)
     });
-    
+  
     updateMessageList();
   });
 }
