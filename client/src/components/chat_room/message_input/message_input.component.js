@@ -8,7 +8,7 @@ import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 
 export default function MessageInputNEW({ sendMessage, chat_id }) {
-  const { user_id } = session;
+  const { id: user_id } = session;
   const state = useStore((state) => state);
   const { setFile, showEmoji, setShowEmoji } = state;
   const [text, setText] = useState('');

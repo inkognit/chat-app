@@ -8,7 +8,7 @@ import Recorder from './recorder/recorder';
 import { session } from '../../../hooks/session';
 
 export default function MessageInput({ sendMessage, chat_id }) {
-    const { user_id } = session
+    const { id: user_id } = session
 
   const state = useStore((state) => state);
   const { file, setFile, showPreview, setShowPreview, showEmoji, setShowEmoji } = state;

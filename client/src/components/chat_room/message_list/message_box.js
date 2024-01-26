@@ -17,7 +17,7 @@ import { session } from '../../../hooks/session';
 export default function MessageBox({ message, removeMessage }) {
   // const { speak, voices } = useSpeechSynthesis();
   const { type, text } = message;
-  const { user_id } = session;
+  const { id: user_id } = session;
   // const lang = document.documentElement.lang || 'en';
   // const voice = voices.find((v) => v.lang.includes(lang) && v.name.includes('Google'));
 

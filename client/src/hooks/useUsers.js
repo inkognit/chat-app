@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { io } from 'socket.io-client';
 // import { Socket } from './socket';
 
-export default function useUsers({ user_id }) {
+export default function useUsers({ user_id, room_id }) {
   const [users, setUsers] = useState([]);
 
   const { current: socket } = useRef(
@@ -12,14 +12,17 @@ export default function useUsers({ user_id }) {
       reconnectionDelayMax: 1000,
       query: {
         user_id,
+        room_id: room_id || `users_room`,
       },
     }),
   );
-  // const { socket } = Socket({ user_id });
+
 
   useEffect(() => {
     if (!socket) {
       return;
+    } if (user_id) {
+          socket.emit('user:add', { user_id });
     }
     socket.connect();
     socket.emit('active_users:get');
@@ -27,17 +30,14 @@ export default function useUsers({ user_id }) {
     //   setLog(log);
     // });
     socket.on('users:update', (users) => {
-      // alert(JSON.stringify(users));
       setUsers(users);
     });
     return () => {
       socket.disconnect();
     };
-  }, [socket]);
+  }, [socket, user_id]);
 
-  const ConnectUser = (user) => {
-    socket.emit('user:add', user);
-  };
 
-  return { users, ConnectUser };
+
+  return { users };
 }

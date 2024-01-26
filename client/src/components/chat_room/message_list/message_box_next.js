@@ -11,7 +11,7 @@ import { session } from '../../../hooks/session';
 
 export default function MessageBoxNext({ message, removeMessage }) {
   const { text } = message;
-  const { user_id } = session;
+  const { id: user_id } = session;
   const isMyMessage = user_id === message.author_id;
 
   function onClickDelete() {

@@ -5,29 +5,17 @@ import ResponsiveAppBar from './components/appbar/appbar.component';
 import storage from './utils/storage';
 import { Route, Routes } from 'react-router-dom';
 import { SignInPage } from './pages/users/sign-in.test.page';
-// import { useSocket } from './hooks/socket';
-// import useUsers from './hooks/useUsers';
-// import { useRef } from 'react';
+import useUsers from './hooks/useUsers';
 
 function App() {
   const user = storage.get(process.env.REACT_APP_USER_KEY || 'chat_app_user');
-  // const { ConnectUser, users } = useUsers({ user_id: user ? user.id : 0 });
-  //  const { connectUser } = useSocket({ user_id: user ? user.id : null });
-
-
-  // setTimeout(() => {
-  //   ConnectUser({ user_id: user ? user.id : 0 });
-  // }, 10000);
-
-
+  const { users } = useUsers({ user_id: user ? user.id : 0 });
   return (
     <>
       {user ? (
         <BrowserRouter>
           <ResponsiveAppBar />
-          <AppRoutes
-            // online_users={users}
-          />
+          <AppRoutes online_users={users} />
         </BrowserRouter>
       ) : (
         <>

@@ -13,6 +13,7 @@ export default function useChatMessages({ user_id, chat_id }) {
       query: {
         chat_id,
         user_id,
+        room_id: `chat_room: ${chat_id}`,
       },
     }),
   );

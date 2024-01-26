@@ -1,10 +1,10 @@
 let users = [];
 
 export default function userHandlers(io, socket) {
-  const { user_id } = socket;
+  const { user_id, room_id } = socket;
 
   const updateUserList = () => {
-    io.to(user_id).emit('users:update', users);
+    io.to(room_id).emit('users:update', users);
   };
 
   socket.on('active_users:get', () => {
@@ -12,14 +12,14 @@ export default function userHandlers(io, socket) {
   });
 
   socket.on('user:add', async () => {
-    socket.to(user_id).emit('log', `User ${user_id} connected`);
+    socket.to(room_id).emit('log', `User ${user_id} connected`);
     if (!users.includes(user_id)) users.push(user_id);
     updateUserList();
   });
 
   socket.on('disconnect', () => {
     if (!users.includes(user_id)) return;
-    socket.to(user_id).emit('log', `User ${user_id} disconnected`);
+    socket.to(room_id).emit('log', `User ${user_id} disconnected`);
     users = users.filter((u) => u !== user_id);
     updateUserList();
   });
