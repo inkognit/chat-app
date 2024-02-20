@@ -1,6 +1,5 @@
 // import cors from 'cors';
-import * as express from 'express';
-
+import  express from 'express';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 import onConnection from './services/socket_io.js';
