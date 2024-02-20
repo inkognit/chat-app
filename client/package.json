@@ -31,6 +31,7 @@
     "zustand": "^4.4.7"
   },
   "scripts": {
+    "prod:start": "npm i & react-scripts start",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
