@@ -1,6 +1,6 @@
 datasource db {
     provider = "postgresql"
-    url      = "postgresql://admin:verysecretpassword@localhost:5003/docker_chat_app_service_db?schema=public"
+    url      = env("DB_PATH")
 }
 
 generator client {
