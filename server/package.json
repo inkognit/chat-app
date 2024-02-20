@@ -4,10 +4,14 @@
   "description": "",
   "type": "module",
   "main": "index.js",
+  "prisma": {
+    "schema": "db/schema.prisma"
+  },
   "scripts": {
+    "generate": "npx prisma generate",
+    "migrate": "npx prisma migrate dev",
     "dev": "nodemon"
   },
-
   "author": "",
   "license": "ISC",
   "dependencies": {

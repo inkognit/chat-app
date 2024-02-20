@@ -37,9 +37,9 @@
             "id": "path",
             "description": "Path to sql file",
             "options": [
-                "/home/michael/w/chat-app/db",
+                "/home/michael/w/chat-app/server/db",
             ],
-            "default": "/home/michael/w/chat-app/db"
+            "default": "/home/michael/w/chat-app/server/db"
         },
         {
             "type": "pickString",

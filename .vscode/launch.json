@@ -81,10 +81,12 @@
                 "NODE_ENV": "dev",
                 "SALT": "jsf5f4er3ds4f2(54256hqasdu6*20q#%!hq(*3(*!&%GDWKH23",
                 "JWT_SECRET": "m*8&7Ge#fHgxUDWBrX^m*X^m*8&7Ge#F!cJs)Z2Y",
-                "DB_NAME": "generators_service_db",
-                "DATABASE_URL": "postgresql://admin:verysecretpassword@45.12.18.194:5432/generators_service_db?schema=public",
+                "DB_NAME": "chat_db_g3ps",
+                "DATABASE_URL": "postgres://admin:orvKZRaSU1GgcqVs2OwgBUkP70TUvDcY@dpg-cn9lp9ljm4es73c5iofg-a.oregon-postgres.render.com/chat_db_g3ps",
                 "USER_KEY": "chat_app_user",
-                "SERVER_URI": "http://192.168.61.71:3000"
+                "ALLOWED_ORIGIN": "http://192.168.61.71:3001",
+                "REACT_APP_USER_KEY": "chat_app_user",
+                "REACT_APP_SERVER_URI": "http://192.168.61.71:3000"
                 // "CORS": "198.162.1.1;"
             }
         },
