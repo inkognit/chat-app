@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon",
-    "prod": "npm i & node index.js"
+    "prod:start": "npm i & node index.js"
   },
   "author": "",
   "license": "ISC",
