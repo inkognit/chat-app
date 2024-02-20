@@ -1,4 +1,4 @@
-import cors from 'cors';
+// import cors from 'cors';
 import express, { json } from 'express';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
