@@ -1,5 +1,6 @@
 // import cors from 'cors';
-import express, { json } from 'express';
+import * as express from 'express';
+
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 import onConnection from './services/socket_io.js';
@@ -43,8 +44,6 @@ const io = new Server(server, {
 io.on('connection', (socket) => {
   onConnection(io, socket);
 });
-
-app.use(json());
 
 app.use('/api', routes);
 
