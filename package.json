@@ -7,13 +7,13 @@
     "schema": "db/schema.prisma"
   },
   "scripts": {
-    "build": "concurrently \"npm i\" \"npx prisma generate\"",
+    "build": "npm i && npx prisma generate",
     "dev:client": "npm run start --prefix client",
     "dev:server": "npm run dev --prefix server",
     "dev": "concurrently \"npm run dev:client\" \"npm run dev:server\"",
     "prod:client": "npm run start --prefix client",
     "prod:server": "npm run prod --prefix server",
-    "prod": "concurrently \"npm run prod:client\" \"npm run prod:server\""
+    "prod": "npm run prod:client & npm run prod:server"
   },
   "keywords": [],
   "author": "",
@@ -22,6 +22,7 @@
     "@prisma/client": "^5.7.0",
     "concurrently": "^8.2.2",
     "cookie-parser": "^1.4.6",
+    "dotenv": "^16.4.5",
     "prettier": "^3.1.1",
     "prettier-plugin-organize-imports": "^3.2.4",
     "prisma": "^5.7.0"

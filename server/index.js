@@ -5,6 +5,7 @@ import { Server } from 'socket.io';
 import onConnection from './services/socket_io.js';
 import routes from './routes/routes.js';
 import cookieParser from 'cookie-parser';
+import 'dotenv/config';
 
 const app = express();
 // app.use(

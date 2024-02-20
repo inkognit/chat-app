@@ -27,9 +27,6 @@
                 "ALLOWED_ORIGIN": "http://localhost:3001",
                 "REACT_APP_USER_KEY": "chat_app_user",
                 "REACT_APP_SERVER_URI": "http://localhost:3000"
-                // "ALLOWED_ORIGIN": "http://192.168.100.6:3001",
-                // "REACT_APP_USER_KEY": "chat_app_user",
-                // "REACT_APP_SERVER_URI": "http://192.168.100.6:3000"
             }
         },
         {
@@ -60,9 +57,6 @@
                 "ALLOWED_ORIGIN": "http://192.168.61.71:3001",
                 "REACT_APP_USER_KEY": "chat_app_user",
                 "REACT_APP_SERVER_URI": "http://192.168.61.71:3000"
-                // "ALLOWED_ORIGIN": "http://192.168.100.6:3001",
-                // "REACT_APP_USER_KEY": "chat_app_user",
-                // "REACT_APP_SERVER_URI": "http://192.168.100.6:3000"
             }
         },
         {
@@ -73,7 +67,7 @@
             "runtimeExecutable": "npm",
             "runtimeArgs": [
                 "run",
-                "dev:server"
+                "dev"
             ],
             "env": {
                 "SERVER_PORT": "3000",
@@ -84,8 +78,9 @@
                 "DB_NAME": "generators_service_db",
                 "DATABASE_URL": "postgresql://admin:verysecretpassword@45.12.18.194:5432/generators_service_db?schema=public",
                 "USER_KEY": "chat_app_user",
-                "SERVER_URI": "http://192.168.61.71:3000"
-                // "CORS": "198.162.1.1;"
+                "ALLOWED_ORIGIN": "http://192.168.61.71:3001",
+                "REACT_APP_USER_KEY": "chat_app_user",
+                "REACT_APP_SERVER_URI": "http://192.168.61.71:3000"
             }
         },
     ]
