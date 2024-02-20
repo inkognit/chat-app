@@ -11,7 +11,7 @@
     "dev:client": "npm run start --prefix client",
     "dev:server": "npm run dev --prefix server",
     "dev": "concurrently \"npm run dev:client\" \"npm run dev:server\"",
-    "prod:client": "npm i & npm run prod:start --prefix client",
+    "prod:client": "npm i & npm run start --prefix client",
     "prod:server": "npm i & npm run prod --prefix server",
     "prod": "npm run prod:client & npm run prod:server"
   },
