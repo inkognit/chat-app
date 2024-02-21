@@ -1,6 +1,6 @@
 import axios from 'axios';
 import storage from '../utils/storage';
-import { access_token } from './session';
+import { access_token } from '../hooks/session';
 
 export const axiosAPI = async ({ link, method, body, params, headers = {} }) => {
   if (access_token) {
@@ -47,7 +47,7 @@ export const axiosAPI = async ({ link, method, body, params, headers = {} }) => 
   } catch (error) {
     alert(JSON.stringify(error.response.data));
     if (error.response.data === 'Invalid Token.') {
-      alert('вызывается, когда Invalid Token.')
+      alert('вызывается, когда Invalid Token.');
       storage.remove('chat_app_user_authorization');
       storage.remove('chat_app_user');
     }

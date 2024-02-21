@@ -1,7 +1,7 @@
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
-import { axiosAPI } from '../../hooks/api';
+import { axiosAPI } from '../../api/api';
 import { session } from '../../hooks/session';
 import { useParams } from 'react-router';
 

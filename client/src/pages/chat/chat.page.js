@@ -4,7 +4,7 @@ import { useParams } from 'react-router';
 import { session } from '../../hooks/session';
 import { useEffect, useState } from 'react';
 import Typography from '@mui/material/Typography';
-import { axiosAPI } from '../../hooks/api';
+import { axiosAPI } from '../../api/api';
 import UserList from '../../components/chat_room/user_list/user_list.component';
 // import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';

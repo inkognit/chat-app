@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { axiosAPI } from '../../hooks/api';
+import { axiosAPI } from '../../api/api';
 import UserList from '../../components/chat_room/user_list/user_list.component';
 
 export default function UsersPage({ online_users }) {

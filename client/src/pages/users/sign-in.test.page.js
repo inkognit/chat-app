@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { TextField } from '@mui/material';
 import storage from '../../utils/storage';
-import { axiosAPI } from '../../hooks/api';
+import { axiosAPI } from '../../api/api';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
