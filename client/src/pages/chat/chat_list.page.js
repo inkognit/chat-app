@@ -25,7 +25,7 @@ import { ListItemLink } from '../../components/general/lists.component';
 // }));
 
 export const ChatListPage = () => {
-  const  user  = session;
+  const user = session;
   const [chats, setChats] = useState([]);
   // const { users } = useUsers({ user_id });
 
