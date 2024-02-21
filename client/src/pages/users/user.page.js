@@ -16,7 +16,7 @@ export const UserPage = () => {
     (async () => {
       try {
         const data = await axiosAPI({
-          link: 'http://localhost:3000/api/users/' + user_id,
+          link: `http://${process.env.REACT_APP_SERVER_HOST}:${process.env.REACT_APP_SERVER_PORT}/api/users/` + user_id,
           method: 'GET',
         });
         if (data) {

@@ -3,14 +3,13 @@ import { axiosAPI } from '../../hooks/api';
 import UserList from '../../components/chat_room/user_list/user_list.component';
 
 export default function UsersPage({ online_users }) {
-
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
       try {
         const data = await axiosAPI({
-          link: 'http://localhost:3000/api/users',
+          link: `http://${process.env.REACT_APP_SERVER_HOST}:${process.env.REACT_APP_SERVER_PORT}/api/users`,
           method: 'GET',
         });
         if (data) {

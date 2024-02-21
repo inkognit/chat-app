@@ -26,7 +26,7 @@ export const ChatPage = ({ online_users: online}) =>
       (async () => {
         try {
           const { users, ...chat } = await axiosAPI({
-            link: `http://localhost:3000/api/chats/${chat_id}`,
+            link: `http://${process.env.REACT_APP_SERVER_HOST}:${process.env.REACT_APP_SERVER_PORT}/api/chats/${chat_id}`,
             method: 'GET',
             params: { user_id },
           });

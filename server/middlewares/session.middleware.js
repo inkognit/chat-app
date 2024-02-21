@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import { device_info } from '../utils/get_device_info.util.js';
 
 export const session = async (req, res, next) => {
-  let prisma;
+  let prisma = new PrismaClient();
   let access_token = req.headers['authorization'];
 
   const secret = Buffer.from(process.env.JWT_SECRET);
@@ -22,7 +22,7 @@ export const session = async (req, res, next) => {
     }
     let { user } = jwt.decode(access_token.substring(7), secret);
     try {
-      prisma = new PrismaClient();
+
 
       const { refresh_token } = await prisma.session.findFirst({
         where: { user_id: user.id, device_info: device_info(req.headers['user-agent']), is_used: false },

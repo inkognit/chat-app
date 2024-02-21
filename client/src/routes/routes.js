@@ -1,4 +1,3 @@
-// const server_routes = (uri) => (process.env.SERVER_URI || 'http://localhost:3001') + uri;
 export const routes = {
   main: '/',
   

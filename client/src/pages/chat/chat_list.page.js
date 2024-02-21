@@ -33,7 +33,7 @@ export const ChatListPage = () => {
     async function fetchData() {
       try {
         const data = await axiosAPI({
-          link: 'http://localhost:3000/api/chats',
+          link: `http://${process.env.REACT_APP_SERVER_HOST}:${process.env.REACT_APP_SERVER_PORT}/api/chats`,
           method: 'GET',
           params: { user_id: user.id },
         });
