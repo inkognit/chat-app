@@ -12,7 +12,7 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { session } from '../../../hooks/session';
+import { session } from '../../../utils/session';
 
 export default function MessageBox({ message, removeMessage }) {
   // const { speak, voices } = useSpeechSynthesis();

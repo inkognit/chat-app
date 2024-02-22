@@ -7,7 +7,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { session } from '../../../hooks/session';
+import { session } from '../../../utils/session';
 
 export default function MessageBoxNext({ message, removeMessage }) {
   const { text } = message;

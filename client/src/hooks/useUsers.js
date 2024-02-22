@@ -1,21 +1,12 @@
-import { useEffect, useRef, useState } from 'react';
-import { io } from 'socket.io-client';
-// import { Socket } from './socket';
+import { useEffect,  useState } from 'react';
+import { Socket } from './socket';
 
 export default function useUsers({ user_id, room_id }) {
   const [users, setUsers] = useState([]);
-
-  const { current: socket } = useRef(
-    io(process.env.REACT_APP_SERVER_URI, {
-      // forceNew: true,
-      autoConnect: false,
-      reconnectionDelayMax: 1000,
-      query: {
+  const { socket } = Socket({
         user_id,
         room_id: room_id || `users_room`,
-      },
-    }),
-  );
+      });
 
 
   useEffect(() => {

@@ -3,7 +3,7 @@ import { HomePage } from '../pages/home/home';
 import { Route, Routes } from 'react-router-dom';
 import UsersPage from '../pages/users/users.page';
 import { ChatListPage } from '../pages/chat/chat_list.page';
-import { SignInPage } from '../pages/users/sign-in.test.page';
+import { SignInPage } from '../pages/users/sign-in.page';
 import { UserPage } from '../pages/users/user.page';
 
 const AppRoutes = (

@@ -15,7 +15,7 @@ import AdbIcon from '@mui/icons-material/Adb';
 // import { Link } from 'react-router-dom';
 import MenuButton from './menu-button.component';
 import { routes } from '../../routes/routes';
-import { session } from '../../hooks/session';
+import { session } from '../../utils/session';
 
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 

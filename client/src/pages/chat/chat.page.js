@@ -1,12 +1,11 @@
 import useChatMessages from '../../hooks/useChatMessages';
 import MessageList from '../../components/chat_room/message_list/message_list';
 import { useParams } from 'react-router';
-import { session } from '../../hooks/session';
+import { session } from '../../utils/session';
 import { useEffect, useState } from 'react';
 import Typography from '@mui/material/Typography';
 import { axiosAPI } from '../../api/api';
-import UserList from '../../components/chat_room/user_list/user_list.component';
-// import Container from '@mui/material/Container';
+import UserList from '../../components/users/user_list.component';
 import Grid from '@mui/material/Grid';
 import MessageInputNEW from '../../components/chat_room/message_input/message_input.component';
 
@@ -23,7 +22,7 @@ export const ChatPage = ({ online_users: online }) => {
     (async () => {
       try {
         const { users, ...chat } = await axiosAPI({
-          link: `http://${process.env.REACT_APP_SERVER_HOST}:${process.env.REACT_APP_SERVER_PORT}/api/chats/${chat_id}`,
+          to: `chats/${chat_id}`,
           method: 'GET',
           params: { user_id },
         });
@@ -37,7 +36,7 @@ export const ChatPage = ({ online_users: online }) => {
   }, [chat_id, online, user_id]);
 
   return (
-    <Grid item xs={12} direction="column" justifyContent="center" alignItems="flex-start" spacing={{ xs: 12 }}>
+    <Grid container direction="column" justifyContent="center" alignItems="center">
       <Typography>{chat.title}</Typography>
       <Grid container direction="row" justifyContent="center" alignItems="flex-start" spacing={{ xs: 12 }}>
         <Grid item xs={2}>
@@ -49,12 +48,10 @@ export const ChatPage = ({ online_users: online }) => {
             // log={log}
             messages={messages}
             removeMessage={removeMessage}
-            // chat_id={chat_id}
           />
 
           <MessageInputNEW className="message input" sendMessage={sendMessage} chat_id={chat_id} />
         </Grid>
-        {/* <MessageInput className="message input" sendMessage={sendMessage} chat_id={chat_id} /> */}
       </Grid>
     </Grid>
   );

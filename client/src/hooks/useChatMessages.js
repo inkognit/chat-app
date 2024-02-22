@@ -1,22 +1,15 @@
-import { useEffect, useRef, useState } from 'react';
-import { io } from 'socket.io-client';
+import { useEffect,  useState } from 'react';
+import { Socket } from './socket';
 
 export default function useChatMessages({ user_id, chat_id }) {
   const [messages, setMessages] = useState([]);
   // const [log, setLog] = useState(null);
 
-  const { current: socket } = useRef(
-    io(process.env.REACT_APP_SERVER_URI, {
-      // forceNew: true,
-      autoConnect: false,
-      reconnectionDelayMax: 10000,
-      query: {
+const { socket } = Socket({
         chat_id,
         user_id,
         room_id: `chat_room: ${chat_id}`,
-      },
-    }),
-  );
+});
 
   useEffect(() => {
     if (!socket) {

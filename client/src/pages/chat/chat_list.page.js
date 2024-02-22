@@ -3,26 +3,12 @@ import Grid from '@mui/material/Grid';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
-// import ListItemAvatar from '@mui/material/ListItemAvatar';
-// import Paper from '@mui/material/Paper';
 import { axiosAPI } from '../../api/api';
 import Typography from '@mui/material/Typography';
-// import { styled } from '@mui/material/styles';
-// import { ButtonLink } from '../../components/appbar/menu-button.component';
 import { routes } from '../../routes/routes';
-import { session } from '../../hooks/session';
-// import Box from '@mui/material/Box';
+import { session } from '../../utils/session';
 import { ListItemLink } from '../../components/general/lists.component';
-// import useUsers from '../../hooks/useUsers';
 
-// const DemoPaper = styled(Paper)(({ theme }) => ({
-//   width: 120,
-//   height: 15,
-//   margin: 5,
-//   padding: theme.spacing(2),
-//   ...theme.typography.body2,
-//   textAlign: 'center',
-// }));
 
 export const ChatListPage = () => {
   const user = session;
@@ -33,7 +19,7 @@ export const ChatListPage = () => {
     async function fetchData() {
       try {
         const data = await axiosAPI({
-          link: `http://${process.env.REACT_APP_SERVER_HOST}:${process.env.REACT_APP_SERVER_PORT}/api/chats`,
+          to: `chats`,
           method: 'GET',
           params: { user_id: user.id },
         });
@@ -64,18 +50,7 @@ export const ChatListPage = () => {
               }}
             >
               <ListItemLink to={routes.chat + `${id}`} size="large">
-                {/* <Typography
-                key={id}
-                textAlign="center"
-                variant="h6"
-                sx={{
-                  fontFamily: 'monospace',
-                  color: 'inherit',
-                  textDecoration: 'none',
-                }}
-              > */}
                 <ListItemText primary={title} secondary="" />
-                {/* </Typography> */}
               </ListItemLink>
             </ListItem>
           ))}

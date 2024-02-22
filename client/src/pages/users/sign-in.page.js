@@ -1,69 +1,125 @@
-// import { useEffect, useState } from 'react';
-// import { TextField } from '@mui/material';
-// import storage from '../../utils/storage';
-// import { axiosAPI } from '../../hooks/api';
-// import Container from '@mui/material/Container';
+import { useEffect, useState } from 'react';
+import { TextField } from '@mui/material';
+import storage from '../../utils/storage';
+import { axiosAPI } from '../../api/api';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import { routes } from '../../routes/routes';
+import IconButton from '@mui/material/IconButton';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import InputAdornment from '@mui/material/InputAdornment';
+import FormControl from '@mui/material/FormControl';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
-// export const SignInPage = () => {
+export const SignInPage = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [formData, setFormData] = useState({
+    login: '',
+    password: '',
+  });
+  const [submitDisabled, setSubmitDisabled] = useState(true);
 
-//   const [formData, setFormData] = useState({
-//     user_name: '',
-//   });
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
 
-//   const [submitDisabled, setSubmitDisabled] = useState(true);
+  useEffect(() => {
+    const isSomeFieldEmpty = Object.values(formData).some((v) => !v.trim() || v.length < 3);
+    setSubmitDisabled(isSomeFieldEmpty);
+  }, [formData]);
 
-//   // все поля формы являются обязательными
-//   useEffect(() => {
-//     const isSomeFieldEmpty = Object.values(formData).some((v) => !v.trim());
-//     setSubmitDisabled(isSomeFieldEmpty);
-//   }, [formData]);
+  const onChange = ({ target: { name, value } }) => {
+    setFormData({ ...formData, [name]: value });
+  };
 
-//   // функция для изменения данных
-//   const onChange = ({ target: { name, value } }) => {
-//     setFormData({ ...formData, [name]: value });
-//   };
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    if (submitDisabled) return;
+    alert(process.env.REACT_APP_SERVER_HOST + ':' + process.env.REACT_APP_SERVER_PORT);
+    const { data } = await axiosAPI({
+      to: `auth/sign-in`,
+      method: 'POST',
+      body: { input_prop: formData.login, password: formData.password },
+    });
 
-//   // функция для отправки формы
-//   const onSubmit = async (e) => {
-//     e.preventDefault();
-//     if (submitDisabled) return;
-//     const data = await axiosAPI({
-//       link: `http://${process.env.REACT_APP_SERVER_HOST}:${process.env.REACT_APP_SERVER_PORT}/api/users`,
-//       method: 'GET',
-//       params: { name: formData.user_name },
-//     });
-//     console.log(data);
-//     if (data && !data.message && data[0].id) {
-//       storage.set(process.env.REACT_APP_USER_KEY || 'chat_app_user', {
-//         user_id: data[0].id,
-//         user_name: formData.user_name,
-//       });
-//     }
+    if (data && !data.message) {
+      storage.set(process.env.REACT_APP_USER_KEY || 'chat_app_user', data.user);
+      storage.set('chat_app_user_authorization', data.access_token);
+    }
 
-//     window.location.reload();
-//   };
+    window.location.reload();
+  };
 
-//   return (
-//     <Container className="container name-input">
-//       <h2>Welcome</h2>
-//       <form onSubmit={onSubmit} className="form name-room">
-//         <Container>
-//           <label htmlFor="user_name">Enter your name</label>
-//           <TextField
-//             type="text"
-//             id="user_name"
-//             name="user_name"
-//             minLength={2}
-//             required
-//             value={formData.user_name}
-//             onChange={onChange}
-//           />
-//         </Container>
-//         {/* скрываем поле для создания комнаты (возможность масштабирования) */}
-//         <button disabled={submitDisabled} className="btn chat">
-//           login
-//         </button>
-//       </form>
-//     </Container>
-//   );
-// };
+  return (
+    <Grid container direction="column" justifyContent="center" alignItems="center" sx={{ height: '100%' }}>
+      <Typography
+        id="welcome"
+        textAlign="center"
+        variant="h6"
+        sx={{
+          fontFamily: 'monospace',
+          color: 'inherit',
+          textDecoration: 'none',
+        }}
+      >
+        Welcome
+      </Typography>
+
+      <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
+        <TextField
+          label="login"
+          name="login"
+          id="login"
+          required
+          size="small"
+          value={formData.login}
+          onChange={onChange}
+        />
+      </FormControl>
+      <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
+        <InputLabel htmlFor="outlined-adornment-password" size="small">
+          Password
+        </InputLabel>
+        <OutlinedInput
+          type={showPassword ? 'text' : 'password'}
+          name="password"
+          id="password"
+          label="password"
+          required
+          size="small"
+          value={formData.password}
+          onChange={onChange}
+          endAdornment={
+            <InputAdornment position="end">
+              <IconButton
+                aria-label="toggle password visibility"
+                onClick={handleClickShowPassword}
+                onMouseDown={handleMouseDownPassword}
+                edge="end"
+              >
+                {showPassword ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            </InputAdornment>
+          }
+        />
+      </FormControl>
+
+      <FormControl sx={{ m: 1, width: '300px' }} variant="outlined">
+        <Grid item alignItems="center" xs={3}>
+          <Button variant="contained" href={routes.main} onClick={onSubmit} disabled={submitDisabled}>
+            login
+          </Button>
+        </Grid>
+        <Grid xs={3}>
+          <Button variant="contained" href={routes.sign_up}>
+            registration
+          </Button>
+        </Grid>
+      </FormControl>
+    </Grid>
+  );
+};

@@ -4,7 +4,7 @@ import './App.scss';
 import ResponsiveAppBar from './components/appbar/appbar.component';
 import storage from './utils/storage';
 import { Route, Routes } from 'react-router-dom';
-import { SignInPage } from './pages/users/sign-in.test.page';
+import { SignInPage } from './pages/users/sign-in.page';
 import useUsers from './hooks/useUsers';
 
 function App() {

@@ -6,8 +6,8 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 
 import CheckCircleOutlineRoundedIcon from '@mui/icons-material/CheckCircleOutlineRounded';
-import { ListItemLink } from '../../general/lists.component';
-import { routes } from '../../../routes/routes';
+import { ListItemLink } from '../general/lists.component';
+import { routes } from '../../routes/routes';
 
 export default function UserList({ users = [] }) {
   return (
@@ -28,7 +28,6 @@ export default function UserList({ users = [] }) {
         }}
       >
         {users &&
-          
           users.map((user) => {
             return (
               <ListItem

@@ -2,7 +2,7 @@ import TextField from '@mui/material/TextField';
 
 import useStore from '../../../hooks/useStore';
 import { useEffect, useState } from 'react';
-import { session } from '../../../hooks/session';
+import { session } from '../../../utils/session';
 import SendIcon from '@mui/icons-material/Send';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
