@@ -9,7 +9,7 @@ import CheckCircleOutlineRoundedIcon from '@mui/icons-material/CheckCircleOutlin
 import { ListItemLink } from '../general/lists.component';
 import { routes } from '../../routes/routes';
 
-export default function UserList({ users = [] }) {
+export const UserList = ({ users = [] }) => {
   return (
     <Grid className="container users">
       <Typography variant="h4" component="h4">
@@ -44,4 +44,4 @@ export default function UserList({ users = [] }) {
       </List>
     </Grid>
   );
-}
+};

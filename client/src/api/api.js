@@ -19,9 +19,8 @@ export const axiosAPI = async ({ to, method, body, params, headers = {} }) => {
     }
     return data;
   } catch (error) {
-    alert(JSON.stringify(error.response.data));
     if (error.response.data === 'Invalid Token.') {
-      alert('вызывается, когда Invalid Token.');
+      alert('Ваша сессия закончена!');
       storage.remove('chat_app_user_authorization');
       storage.remove('chat_app_user');
       window.location.reload();

@@ -7,7 +7,7 @@ import { useParams } from 'react-router';
 
 export const UserPage = () => {
   const [user, setUser] = useState({});
-  const [isEdit, setIsEdit] = useState(false);
+  // const [isEdit, setIsEdit] = useState(false);
   const { user_id } = useParams();
   const { id: session_user_id } = session;
   const isOwner = session_user_id === user_id;

@@ -8,16 +8,17 @@ import Typography from '@mui/material/Typography';
 import { routes } from '../../routes/routes';
 import { session } from '../../utils/session';
 import { ListItemLink } from '../../components/general/lists.component';
-
+import { Loader } from '../../components/general/loader.component';
 
 export const ChatListPage = () => {
   const user = session;
+  const [loader, setLoader] = useState(false);
   const [chats, setChats] = useState([]);
-  // const { users } = useUsers({ user_id });
 
   useEffect(() => {
     async function fetchData() {
       try {
+        setLoader(true);
         const data = await axiosAPI({
           to: `chats`,
           method: 'GET',
@@ -27,13 +28,19 @@ export const ChatListPage = () => {
         setChats(data);
       } catch (err) {
         console.log(err);
+      } finally {
+        setLoader(false);
       }
     }
     fetchData();
   }, [user.id]);
 
+  if (loader) {
+    return <Loader />;
+  }
+
   return (
-    <Grid container direction="row" justifyContent="center" alignItems="flex-start">
+    <Grid container justifyContent="center" alignItems="flex-start">
       <Grid item xs={2}>
         <Typography variant="h4" component="h4">
           Chats
