@@ -15,7 +15,6 @@ model user {
     first_name  String
     middle_name String?
     last_name   String
-    name        String?
     avatar      Bytes?
     user_chat   user_chat[]
     message     message[]

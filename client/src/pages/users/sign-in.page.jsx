@@ -39,7 +39,7 @@ export const SignInPage = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     if (submitDisabled) return;
-    alert(process.env.REACT_APP_SERVER_HOST + ':' + process.env.REACT_APP_SERVER_PORT);
+    
     const { data } = await axiosAPI({
       to: `auth/sign-in`,
       method: 'POST',

@@ -5,6 +5,7 @@ import { UsersPage } from '../pages/users/users.page';
 import { ChatListPage } from '../pages/chat/chat_list.page';
 import { SignInPage } from '../pages/users/sign-in.page';
 import { UserPage } from '../pages/users/user.page';
+import { SignUpPage } from '../pages/users/sign-up.page';
 
 const AppRoutes = ({ online_users }) => (
   <Routes>
@@ -13,7 +14,7 @@ const AppRoutes = ({ online_users }) => (
     <Route path="/chats" element={<ChatListPage />} />
     <Route path="/chats/:chat_id" element={<ChatPage online_users={online_users} />} />
 
-    {/* <Route path="/sign-up" element={<SignUpPage />} /> */}
+    <Route path="/sign-up" element={<SignUpPage />} />
     <Route path="/sign-in" element={<SignInPage />} />
 
     <Route path="/users" element={<UsersPage online_users={online_users} />} />
